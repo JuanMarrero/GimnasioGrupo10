@@ -100,7 +100,7 @@ public class Socios {
 
     @Override
     public String toString() {
-        return  ID_Socio + "," + DNI + "," + Nombre + "," + Apellido + '}';
+        return  ID_Socio + "," + DNI + "," + Nombre + "," + Apellido;
     }
     
    

@@ -4,7 +4,7 @@ package gimnasiogrupo10.entidades;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-public class Conexion {
+    public class Conexion {
     private static final String URL="jdbc:mariadb://localhost/";
     private static final String DB="gimnasiogrupo10";
     private static final String USER="root";
