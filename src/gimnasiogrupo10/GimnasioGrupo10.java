@@ -50,15 +50,22 @@ public class GimnasioGrupo10 {
 
     
         //PRUEBAS CLASES
-    Entrenadores entrenador= new Entrenadores(2,132456,"Dominguez","Ariel" ,"Crossfit",true); // entrenador para la clase
-    
-    Time horario = Time.valueOf("14:30:00"); // crear instancia de time para la hora de la clase
-    
-    Clases clase=new Clases("Cardio", entrenador, horario, 10,true); // crear la clase con el entrenador
-    
-    ClasesData c=new ClasesData();
-    
-    c.guardarClase(clase);
+//    Entrenadores entrenador= new Entrenadores(2,132456,"Dominguez","Ariel" ,"Crossfit",true); // entrenador para la clase
+//    
+//    Time horario = Time.valueOf("14:30:00"); // crear instancia de time para la hora de la clase
+//    
+//    Clases clase=new Clases("Cardio", entrenador, horario, 10,true); // crear la clase con el entrenador
+//    
+//    ClasesData c=new ClasesData();
+//    
+//    c.guardarClase(clase);
+
+
+//        ClasesData cls=new ClasesData();
+//        
+//        for(Clases clases:cls.listarClases()){ //1
+//            System.out.println(clases.toString());
+//        }
 
    }  
 }

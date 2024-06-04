@@ -144,5 +144,39 @@ public class SocioData {
         }
         return socios;
     }
+    
+        public Socios buscarSocioID(int ID_Socio){
+        
+        String sql="SELECT dni, apellido, nombre, edad FROM socios WHERE ID_Socio = ? AND estado = 1";
+        
+        Socios socio=null; //iniciamos un socio vacio
+        
+        try {
+             PreparedStatement ps = con.prepareStatement(sql) ;
+                ps.setInt(1, ID_Socio);
+                
+                ResultSet rs=ps.executeQuery();
+                
+                if(rs.next()){
+                    
+                    socio=new Socios(); //creamos un Socio vacio
+                    
+                    socio.setID_Socio(rs.getInt("ID_Socio"));
+                    socio.setDNI(rs.getInt("DNI"));
+                    socio.setApellido(rs.getString("apellido"));
+                    socio.setNombre(rs.getString("Nombre"));
+                    socio.setEdad(rs.getInt("Edad"));
+                    socio.setEstado(true);
+                }else{
+                    
+                    JOptionPane.showMessageDialog(null, "El Socio no existe");
+                }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Socios");
+        }
+        return socio;
+    
+    }
 }
    
