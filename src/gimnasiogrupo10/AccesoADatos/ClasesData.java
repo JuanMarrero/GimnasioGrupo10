@@ -125,7 +125,7 @@ public class ClasesData {
                 if(rs.next()){
                     
                     clase=new Clases(); //creamos una clase vacia
-                    Entrenadores ent=ed.buscarEntrenadorPorNombre("Nombre", "Apellido");
+                    Entrenadores ent=ed.buscarEntrenadorPorID(ID_Entrenador);
                     clase.setEntrenadores(ent);
                     clase.setID_Clase(rs.getInt("ID_Clase"));
                     clase.setNombre(rs.getString("Nombre"));
