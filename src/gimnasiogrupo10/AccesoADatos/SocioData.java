@@ -97,7 +97,7 @@ public class SocioData {
                     socio=new Socios(); //creamos un Socio vacio
                     
                     socio.setID_Socio(rs.getInt("ID_Socio"));
-                    socio.setID_Socio(DNI);
+                    socio.setDNI(DNI);
                     socio.setDNI(rs.getInt("DNI"));
                     socio.setApellido(rs.getString("apellido"));
                     socio.setNombre(rs.getString("Nombre"));
