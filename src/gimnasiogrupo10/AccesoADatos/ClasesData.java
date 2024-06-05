@@ -16,7 +16,8 @@ public class ClasesData {
     }    
     
       public void guardarClase(Clases clases){
-        
+
+          
        String sql="INSERT INTO clases (Nombre, ID_Entrenador, Horario, Capacidad, Estado)"
                + "VALUES (?,?,?,?,?)";
         
@@ -143,6 +144,38 @@ public class ClasesData {
         return clase;
     
     }
+      
+     public Clases buscarClasesPorID(int ID_Clase){
+        
+        String sql="SELECT * FROM Clases WHERE ID_Clase = ? AND estado = 1";
+        
+        Clases clase=null; //iniciamos una clase vacia
+        
+        try {
+             PreparedStatement ps = con.prepareStatement(sql) ;
+                ps.setInt(1, ID_Clase);
+                
+                ResultSet rs=ps.executeQuery();
+                
+                if(rs.next()){
+                    
+                    clase=new Clases(); //creamos una clase vacia
+                    clase.setID_Clase(rs.getInt("ID_Clase"));
+                    clase.setNombre(rs.getString("Nombre"));
+                    clase.setHorario(rs.getTime("Horario"));
+                    
+
+                }else{
+                    
+                    JOptionPane.showMessageDialog(null, "La Clase no existe");
+                }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Clase");
+        }
+        return clase;
+    
+    } 
       
     
 }

@@ -1,34 +1,45 @@
+
 package gimnasiogrupo10.entidades;
 
 import java.util.Date;
 
+/**
+ *
+ * @author Juan
+ */
 public class Membresias {
     
     private int ID_Membresia;
-    private Double Costo;
-    private int CantidadPases;
+    private Socios socio;
+    private Clases clase;
+    private double Costo;
+    private int CantidadDePases;
     private Date Fecha_Inicio;
     private Date Fecha_Fin;
-    private Socios socios;
+    private boolean Estado;
 
     public Membresias() {
     }
 
-    public Membresias(int ID_Membresia, Double Costo, int CantidadPases, Date Fecha_Inicio, Date Fecha_Fin, Socios socios) {
+    public Membresias(int ID_Membresia, Socios socio, Clases clase, double Costo, int CantidadDePases, Date Fecha_Inicio, Date Fecha_Fin, boolean Estado) {
         this.ID_Membresia = ID_Membresia;
+        this.socio = socio;
+        this.clase = clase;
         this.Costo = Costo;
-        this.CantidadPases = CantidadPases;
+        this.CantidadDePases = CantidadDePases;
         this.Fecha_Inicio = Fecha_Inicio;
         this.Fecha_Fin = Fecha_Fin;
-        this.socios = socios;
+        this.Estado = Estado;
     }
 
-    public Membresias(Double Costo, int CantidadPases, Date Fecha_Inicio, Date Fecha_Fin, Socios socios) {
+    public Membresias(Socios socio, Clases clase, double Costo, int CantidadDePases, Date Fecha_Inicio, Date Fecha_Fin, boolean Estado) {
+        this.socio = socio;
+        this.clase = clase;
         this.Costo = Costo;
-        this.CantidadPases = CantidadPases;
+        this.CantidadDePases = CantidadDePases;
         this.Fecha_Inicio = Fecha_Inicio;
         this.Fecha_Fin = Fecha_Fin;
-        this.socios = socios;
+        this.Estado = Estado;
     }
 
     public int getID_Membresia() {
@@ -39,20 +50,36 @@ public class Membresias {
         this.ID_Membresia = ID_Membresia;
     }
 
-    public Double getCosto() {
+    public Socios getSocio() {
+        return socio;
+    }
+
+    public void setSocio(Socios socio) {
+        this.socio = socio;
+    }
+
+    public Clases getClase() {
+        return clase;
+    }
+
+    public void setClase(Clases clase) {
+        this.clase = clase;
+    }
+
+    public double getCosto() {
         return Costo;
     }
 
-    public void setCosto(Double Costo) {
+    public void setCosto(double Costo) {
         this.Costo = Costo;
     }
 
-    public int getCantidadPases() {
-        return CantidadPases;
+    public int getCantidadDePases() {
+        return CantidadDePases;
     }
 
-    public void setCantidadPases(int CantidadPases) {
-        this.CantidadPases = CantidadPases;
+    public void setCantidadDePases(int CantidadDePases) {
+        this.CantidadDePases = CantidadDePases;
     }
 
     public Date getFecha_Inicio() {
@@ -71,18 +98,19 @@ public class Membresias {
         this.Fecha_Fin = Fecha_Fin;
     }
 
-    public Socios getSocios() {
-        return socios;
+    public boolean isEstado() {
+        return Estado;
     }
 
-    public void setSocios(Socios socios) {
-        this.socios = socios;
+    public void setEstado(boolean Estado) {
+        this.Estado = Estado;
     }
 
     @Override
     public String toString() {
-        return "Membresias{" + "ID_Membresia=" + ID_Membresia + ", CantidadPases=" + CantidadPases + ", Fecha_Inicio=" + Fecha_Inicio + ", Fecha_Fin=" + Fecha_Fin + ", socios=" + socios + '}';
+        return  ID_Membresia + "," + socio + "," + clase + "," + CantidadDePases + "," + Fecha_Inicio + "," + Fecha_Fin + "," + Estado;
     }
     
     
+
 }

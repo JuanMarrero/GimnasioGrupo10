@@ -17,6 +17,7 @@ public class SocioData {
     
     public void guardarSocio(Socios socio){
         
+        
        String sql="INSERT INTO Socios (DNI, Nombre, Apellido, Edad, Correo, Telefono, Estado)"
                + "VALUES (?,?,?,?,?,?,?)";
         
@@ -143,6 +144,30 @@ public class SocioData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Socio");
         }
         return socios;
+    }
+    
+    public void borrarSocio(int id){
+        
+       String sql="UPDATE Socios SET estado = 0 WHERE ID_Socio = ?";
+       
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            
+            ps.setInt(1, id);
+            
+            int gl=ps.executeUpdate();
+            
+            if(gl==1){
+                
+                JOptionPane.showMessageDialog(null, "Socio dado de baja exitosamente");
+
+            }                
+            ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla SOcio");
+        }
+        
     }
     
 }
