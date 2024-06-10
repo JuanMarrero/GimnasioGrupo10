@@ -1,6 +1,7 @@
 package gimnasiogrupo10.entidades;
 
 import java.sql.Time;
+import java.time.LocalTime;
 
 
 public class Clases {
@@ -8,14 +9,14 @@ public class Clases {
     private int ID_Clase;
     private String Nombre;
     private Entrenadores entrenadores;
-    private Time Horario;
+    private LocalTime Horario;
     private int Capacidad;
     private boolean Estado;
 
     public Clases() {
     }
 
-    public Clases(int ID_Clase, String Nombre, Entrenadores entrenadores, Time Horario, int Capacidad, boolean Estado) {
+    public Clases(int ID_Clase, String Nombre, Entrenadores entrenadores, LocalTime Horario, int Capacidad, boolean Estado) {
         this.ID_Clase = ID_Clase;
         this.Nombre = Nombre;
         this.entrenadores = entrenadores;
@@ -40,7 +41,7 @@ public class Clases {
         this.Estado = Estado;
     }
 
-    public Clases(String Nombre, Entrenadores entrenadores, Time Horario,int Capacidad, boolean Estado) {
+    public Clases(String Nombre, Entrenadores entrenadores, LocalTime Horario,int Capacidad, boolean Estado) {
         this.Nombre = Nombre;
         this.entrenadores = entrenadores;
         this.Horario = Horario;
@@ -72,11 +73,11 @@ public class Clases {
         this.entrenadores = entrenadores;
     }
 
-    public Time getHorario() {
+    public LocalTime getHorario() {
         return Horario;
     }
 
-    public void setHorario(Time Horario) {
+    public void setHorario(LocalTime Horario) {
         this.Horario = Horario;
     }
 

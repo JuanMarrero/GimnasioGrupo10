@@ -51,7 +51,7 @@ public class MembresiasData {
         
         ArrayList<Membresias> inscripciones= new ArrayList<>();
         
-        String sql="SELECT * FROM membresias WHERE ID_Socio= ? AND estado=1";
+        String sql="SELECT * FROM membresias WHERE ID_Socio= ? AND Estado=1";
         
         try {
             try (PreparedStatement ps = con.prepareStatement(sql)) {

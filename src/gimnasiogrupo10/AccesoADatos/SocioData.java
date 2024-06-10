@@ -49,7 +49,7 @@ public class SocioData {
     
     public Socios buscarSocio(int id){
         
-        String sql="SELECT dni, apellido, nombre, edad FROM socios WHERE Id_Socio = ? AND estado = 1";
+        String sql="SELECT DNI, Apellido, Nombre, Edad FROM socios WHERE Id_Socio = ? AND Estado = 1";
         
         Socios socio=null; //iniciamos un socio vacio
         
@@ -83,7 +83,7 @@ public class SocioData {
     
     public Socios buscarSocioXDni(int DNI){
         
-        String sql="SELECT dni, apellido, nombre, edad FROM socios WHERE DNI = ? AND estado = 1";
+        String sql="SELECT DNI, Apellido, Nombre, Edad FROM socios WHERE DNI = ? AND Estado = 1";
         
         Socios socio=null; //iniciamos un socio vacio
         
@@ -118,7 +118,7 @@ public class SocioData {
     
     public List<Socios> listarSocios(){
         
-        String sql="SELECT ID_Socio, DNI, Apellido, Nombre FROM socios WHERE estado = 1";
+        String sql="SELECT ID_Socio, DNI, Apellido, Nombre FROM socios WHERE Estado = 1";
         
         ArrayList<Socios> socios=new ArrayList<>(); //iniciamos un array de socios vacio
         
@@ -148,7 +148,7 @@ public class SocioData {
     
     public void borrarSocio(int id){
         
-       String sql="UPDATE Socios SET estado = 0 WHERE ID_Socio = ?";
+       String sql="UPDATE Socios SET Estado = 0 WHERE ID_Socio = ?";
        
         try {
             PreparedStatement ps=con.prepareStatement(sql);
