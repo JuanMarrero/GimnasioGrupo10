@@ -194,8 +194,8 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
                         .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57)
                         .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -286,7 +286,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
                 return;
             }
             // Validación de DNI con expresión regular
-            String regularDni = "\\d+"; // "\\d:" Representa cualquier dígito numérico (0 al 9) y el "+" Indica que debe haber al menos un dígito, pero puede haber más.
+            String regularDni = "\\d{8}"; // "\\d:" Representa cualquier dígito numérico (0 al 9) y el "+" Indica que debe haber al menos un dígito, pero puede haber más.
             if (!dni.matches(regularDni)) {
                 JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
                 return;
@@ -297,7 +297,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "El nombre y apellido solo deben contener letras.");
                 return;
             }
-               if (edad < 0) {
+               if (edad > 18) {
             JOptionPane.showMessageDialog(this, "Ingrese una edad válida.");
             return;
         }

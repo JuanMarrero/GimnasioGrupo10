@@ -190,13 +190,13 @@ public class EntrenadoresData {
             
             if(rs.next()){
             entrenadores = new Entrenadores ();
-            entrenadores.setID_Entrenador(rs.getInt("id-entrenador"));
+            entrenadores.setID_Entrenador(rs.getInt("ID_Entrenador"));
             entrenadores.setDNI(rs.getInt("dni"));
             entrenadores.setNombre(rs.getString("nombre"));
             entrenadores.setApellido(rs.getString("apellido"));
             entrenadores.setEspecialidad(rs.getString("especialidad"));
             //entrenadores.setEstado(true);
-            entrenadores.setEstado(rs.getBoolean("estado-en"));
+            entrenadores.setEstado(rs.getBoolean("Estado"));
             }else{
             JOptionPane.showMessageDialog(null, "No se encontró el entrenador");
             }
@@ -222,13 +222,13 @@ public class EntrenadoresData {
             
             if(rs.next()){
             entrenadores = new Entrenadores ();
-            entrenadores.setID_Entrenador(rs.getInt("id-entrenador"));
+            entrenadores.setID_Entrenador(rs.getInt("ID_Entrenador"));
             entrenadores.setDNI(rs.getInt("dni"));
             entrenadores.setNombre(rs.getString("nombre"));
             entrenadores.setApellido(rs.getString("apellido"));
             entrenadores.setEspecialidad(rs.getString("especialidad"));
             //entrenador.setEstado(true);
-            entrenadores.setEstado(rs.getBoolean("estado-en"));
+            entrenadores.setEstado(rs.getBoolean("Estado"));
             }else{
             JOptionPane.showMessageDialog(null, "No se encontró el entrenador");
             }
@@ -256,13 +256,13 @@ public class EntrenadoresData {
             while (rs.next()) {
                 flag=true;
                 Entrenadores entrenadores = new Entrenadores();
-                entrenadores.setID_Entrenador(rs.getInt("id-entrenador"));
+                entrenadores.setID_Entrenador(rs.getInt("ID_Entrenador"));
                 entrenadores.setDNI(rs.getInt("dni"));
                 entrenadores.setNombre(rs.getString("nombre"));
                 entrenadores.setApellido(rs.getString("apellido"));
                 entrenadores.setEspecialidad(rs.getString("especialidad"));
                 //entrenadores.setEstado(true);
-                entrenadores.setEstado(rs.getBoolean("estado-en"));
+                entrenadores.setEstado(rs.getBoolean("Estado"));
 
                 lista.add(entrenadores);
             }

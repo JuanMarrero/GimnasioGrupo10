@@ -129,9 +129,11 @@ public class ClasesData {
                     clase=new Clases(); //creamos una clase vacia
                     Entrenadores ent=ed.buscarEntrenadorPorID(ID_Entrenador);
                     clase.setEntrenadores(ent);
+                    clase.setCapacidad(rs.getInt("Capacidad"));
                     clase.setID_Clase(rs.getInt("ID_Clase"));
                     clase.setNombre(rs.getString("Nombre"));
                     clase.setHorario(rs.getTime("Horario").toLocalTime());
+                    clase.setEstado(rs.getBoolean("Estado"));
                     
 
                 }else{
@@ -183,23 +185,23 @@ public class ClasesData {
         List<Clases> listaClase = new ArrayList<>();
         String sql = "SELECT clases.*, entrenadores.`ID_Entrenador`, entrenadores.Nombre as nombre_entrenador "
                       + " FROM `clases`, entrenadores "
-                      +" WHERE clases.`ID_Entrenador` = entrenadores.`id-entrenador` "
-                       + " AND `Estado-clase`=1 ";
+                      +" WHERE clases.`ID_Entrenador` = entrenadores.`ID_Entrenador` "
+                       + " AND 'clases.Estado' = 1 ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Clases clases = new Clases();
-                clases.setID_Clase(rs.getInt("id-clase"));
-                clases.setNombre(rs.getString("nombre"));
+                clases.setID_Clase(rs.getInt("ID_clase"));
+                clases.setNombre(rs.getString("Nombre"));
                 
-                clases.setHorario(rs.getTime("horario").toLocalTime());
-                clases.setCapacidad(rs.getInt("capacidad"));
-                clases.setEstado(rs.getBoolean("estado-clase"));
+                clases.setHorario(rs.getTime("Horario").toLocalTime());
+                clases.setCapacidad(rs.getInt("Capacidad"));
+                clases.setEstado(rs.getBoolean("Estado"));
                    
                 Entrenadores entrenadores = new Entrenadores(); 
-                 entrenadores.setID_Entrenador(rs.getInt("id-entrenador"));
+                 entrenadores.setID_Entrenador(rs.getInt("ID_Entrenador"));
                  entrenadores.setNombre(rs.getString("nombre_entrenador"));
               
                 clases.setEntrenadores(entrenadores);
@@ -213,13 +215,14 @@ public class ClasesData {
         }
         return listaClase;
     }
+     
       public List<Clases> listarClasesInactivas() {
 
         List<Clases> listaClase = new ArrayList<>();
         String sql = "SELECT clases.*, entrenadores.`ID_Entrenador`, entrenadores.Nombre as nombre_entrenador "
                       + " FROM `clases`, entrenadores "
                       +" WHERE clases.`id-entrenador` = entrenadores.`ID_Entrenador` "
-                       + " AND `estado-clase`=0 ";
+                       + " AND `clases.Estado`=0 ";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -227,15 +230,15 @@ public class ClasesData {
 
             while (rs.next()) {
                 Clases clases = new Clases();
-                clases.setID_Clase(rs.getInt("id-clase"));
-                clases.setNombre(rs.getString("nombre"));
+                clases.setID_Clase(rs.getInt("ID_clase"));
+                clases.setNombre(rs.getString("Nombre"));
               
-                clases.setHorario(rs.getTime("horario").toLocalTime());
-                clases.setCapacidad(rs.getInt("capacidad"));
-                clases.setEstado(rs.getBoolean("estado-clase"));
+                clases.setHorario(rs.getTime("Horario").toLocalTime());
+                clases.setCapacidad(rs.getInt("Capacidad"));
+                clases.setEstado(rs.getBoolean("Estado"));
                    
                 Entrenadores entrenadores = new Entrenadores(); 
-                 entrenadores.setID_Entrenador(rs.getInt("id-entrenador"));
+                 entrenadores.setID_Entrenador(rs.getInt("ID_Entrenador"));
                  entrenadores.setNombre(rs.getString("nombre_entrenador"));
               
                 clases.setEntrenadores(entrenadores);
@@ -254,7 +257,7 @@ public class ClasesData {
         List<LocalTime> listaHorarios = new ArrayList<>();
         String sql = "SELECT Horario "
                    + "FROM `clases` "
-                   + "WHERE `estado-clase`=1";
+                   + "WHERE `estado` =1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -291,9 +294,6 @@ public class ClasesData {
             }
         }
              
-         
-
-        
         return horariosDisponibles;
     }
 }

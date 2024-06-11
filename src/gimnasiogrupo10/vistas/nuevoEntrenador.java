@@ -197,7 +197,7 @@ public class nuevoEntrenador extends javax.swing.JInternalFrame {
                 return;}
             
             // Validación de DNI con expresión regular
-            String regularDNI = "\\d+"; // "\\d:" Representa cualquier dígito numérico (0 al 9) y el "+" Indica que debe haber al menos un dígito, pero puede haber más.
+            String regularDNI = "\\d{8}"; // "\\d:" Representa cualquier dígito numérico (0 al 9) y el "+" Indica que debe haber al menos un dígito, pero puede haber más.
             if(!Dni.matches(regularDNI)) {
                 JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
             return;}

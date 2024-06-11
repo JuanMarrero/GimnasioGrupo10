@@ -49,6 +49,11 @@ public class gestionSocio extends javax.swing.JInternalFrame {
         jtBuscarID.setFont(new java.awt.Font("Ebrima", 0, 12)); // NOI18N
         jtBuscarID.setForeground(new java.awt.Color(51, 51, 51));
         jtBuscarID.setSelectionColor(new java.awt.Color(204, 204, 204));
+        jtBuscarID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtBuscarIDActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
@@ -279,6 +284,10 @@ public class gestionSocio extends javax.swing.JInternalFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jtBuscarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtBuscarIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscarIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

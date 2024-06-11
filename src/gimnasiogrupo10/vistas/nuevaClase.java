@@ -233,6 +233,7 @@ public class nuevaClase extends javax.swing.JInternalFrame {
             entrenadorActual = eD.buscarPorDni(DNI);
             if (entrenadorActual.getEstado()) {
                 jtNombreApellidoEntrenador.setText(entrenadorActual.getNombre() + " " + entrenadorActual.getApellido());
+                jtNombreClase.setText(entrenadorActual.getEspecialidad());
             } else {
                 JOptionPane.showMessageDialog(this, "El entrenador esta inactivo");
             }

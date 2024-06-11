@@ -3,6 +3,7 @@ package gimnasiogrupo10.vistas;
 import gimnasiogrupo10.entidades.*;
 import gimnasiogrupo10.AccesoADatos.*;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,23 +12,36 @@ import javax.swing.table.DefaultTableModel;
  */
 public class gestionClase extends javax.swing.JInternalFrame {
   private DefaultTableModel modelo;
+  
   ClasesData cD = new ClasesData();
+  
   Clases clase = new Clases();
+  
+  List <Clases> listaC;
+  List <Entrenadores> listaE;
+  
   EntrenadoresData eD = new EntrenadoresData();
+  
   
   public gestionClase() {
         initComponents();
         modelo = new DefaultTableModel();
         armarCabeceraTabla();
+        listaE = eD.listarEntrenadores();
+        listaC = cD.listarClases();    
+        
+        
+        cargarEntrenador();
+        cargarClases();
     }
  private void armarCabeceraTabla() {
         ArrayList<Object> filaCabecera = new ArrayList<>();
         filaCabecera.add("ID");
         filaCabecera.add("Nombre");
         filaCabecera.add("Entrenador");
-        filaCabecera.add("Horario");
-        filaCabecera.add("Capasidad");
+        filaCabecera.add("Capacidad");
         filaCabecera.add("Estado");
+        filaCabecera.add("Horario");
         for (Object it : filaCabecera) {
             modelo.addColumn(it);
         }
@@ -41,7 +55,6 @@ public class gestionClase extends javax.swing.JInternalFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jtBuscarDni = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
         jrbActivas = new javax.swing.JRadioButton();
         jrbInactivas = new javax.swing.JRadioButton();
@@ -51,6 +64,7 @@ public class gestionClase extends javax.swing.JInternalFrame {
         jbActualizar = new javax.swing.JButton();
         jbBaja = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        ComboEntrenador = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Gestion Clases");
 
@@ -90,7 +104,6 @@ public class gestionClase extends javax.swing.JInternalFrame {
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtBuscarDni, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jrbActivas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jrbInactivas, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -99,6 +112,7 @@ public class gestionClase extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jbActualizar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbBaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(ComboEntrenador, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -111,7 +125,7 @@ public class gestionClase extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1))
                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                            .addGap(0, 14, Short.MAX_VALUE)
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                     .addComponent(jrbActivas)
@@ -122,9 +136,9 @@ public class gestionClase extends javax.swing.JInternalFrame {
                                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                     .addGap(22, 22, 22)
                                     .addComponent(jLabel2)
-                                    .addGap(47, 47, 47)
-                                    .addComponent(jtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
+                                    .addGap(28, 28, 28)
+                                    .addComponent(ComboEntrenador, 0, 143, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jbBuscar))))
                         .addGroup(jDesktopPane1Layout.createSequentialGroup()
                             .addContainerGap()
@@ -148,8 +162,8 @@ public class gestionClase extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscar))
+                    .addComponent(jbBuscar)
+                    .addComponent(ComboEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrbActivas)
@@ -191,6 +205,7 @@ public class gestionClase extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Entrenadores> ComboEntrenador;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -202,7 +217,39 @@ public class gestionClase extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrbActivas;
     private javax.swing.JRadioButton jrbInactivas;
     private javax.swing.JRadioButton jrbTodas;
-    private javax.swing.JTextField jtBuscarDni;
     private javax.swing.JTable jtClases;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarEntrenador(){
+        for (Entrenadores entrenador: listaE){
+        ComboEntrenador.addItem(entrenador);
+        }
+    }
+
+    private void cargarClases(){
+      
+        
+      Entrenadores entrenadorSeleccionado =  (Entrenadores) ComboEntrenador.getSelectedItem();
+        
+       if(entrenadorSeleccionado != null){
+        
+        int ID_Entrenador = entrenadorSeleccionado.getID_Entrenador();
+        
+        Clases clase1 = cD.buscarClasesPorEntrenador(ID_Entrenador);
+        
+        if (clase1 != null) {
+            modelo.setRowCount(0);
+         
+           modelo.addRow(new Object[]{clase1.getID_Clase(),clase1.getNombre(),clase1.getEntrenadores(),clase1.getCapacidad(),clase1.isEstado()});
+            }else {
+            System.out.println("No hay clases para este entrenador");
+            }
+        
+             }else{
+           
+           System.out.println("Por favor seleccionar un entrenador");
+            }
+    
+    }
 }
+
