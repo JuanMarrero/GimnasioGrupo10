@@ -23,11 +23,16 @@ public class nuevaClase extends javax.swing.JInternalFrame {
     
     private ClasesData clasesData = new ClasesData();
     private EntrenadoresData entrenadoresData = new EntrenadoresData();
-    private List<Entrenadores> listaEntrenadores;
     
+    List<Clases> listaC;
+    List<Entrenadores> listaE;
     public nuevaClase() {
-
+        
         initComponents();
+        
+        listaC = clasesData.listarClases();
+        listaE = entrenadoresData.listarEntrenadores();
+        
         cargarEntrenadores();
         cargarHorariosDisponibles();
     }
@@ -76,6 +81,12 @@ public class nuevaClase extends javax.swing.JInternalFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        comboHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboHorarioActionPerformed(evt);
             }
         });
 
@@ -203,6 +214,10 @@ public class nuevaClase extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void comboHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboHorarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboHorarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonGuardar;
@@ -222,10 +237,10 @@ public class nuevaClase extends javax.swing.JInternalFrame {
 
  private void cargarEntrenadores(){
      
-     listaEntrenadores = entrenadoresData.listarEntrenadores();
-     for (Entrenadores entrenador : listaEntrenadores){
-         comboEntrenadores.addItem(entrenador);
+     for (Entrenadores entrenadores : listaE){
+         comboEntrenadores.addItem(entrenadores);
      }
+             
      
  }
 
@@ -237,10 +252,11 @@ public class nuevaClase extends javax.swing.JInternalFrame {
         rbActivo.setSelected(true);
     }
 
- private void cargarHorariosDisponibles() {
-    List<LocalTime> horariosDisponibles = clasesData.listarHorariosDisponibles();
-    for (LocalTime horario : horariosDisponibles) {
-        comboHorario.addItem(horario);
+             private void cargarHorariosDisponibles() {
+        List<LocalTime> horarios = clasesData.listarHorariosDisponibles();
+        comboHorario.removeAllItems();
+        for (LocalTime horario : horarios) {
+            comboHorario.addItem(horario);
+        }
     }
-}
 }

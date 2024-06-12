@@ -52,7 +52,7 @@ public class ClasesData {
        
       public List<Clases> listarClases(){
         
-        String sql="SELECT * FROM clases";
+        String sql="SELECT * FROM clases WHERE Estado = 1";
 
         ArrayList<Clases> clases=new ArrayList<>(); //iniciamos un array de clases vacio
         
@@ -238,11 +238,9 @@ public List<Clases> listarClasesActivas() {
         return listaClase;
     }
      
-     public List<LocalTime> listarHorariosClasesActivas() {
+    public List<LocalTime> listarHorariosClasesActivas() {
         List<LocalTime> listaHorarios = new ArrayList<>();
-        String sql = "SELECT Horario "
-                   + "FROM `clases` "
-                   + "WHERE estado =1";
+        String sql = "SELECT Horario FROM clases WHERE estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -251,36 +249,30 @@ public List<Clases> listarClasesActivas() {
                 listaHorarios.add(rs.getTime("Horario").toLocalTime());
             }
             rs.close();
+            ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a los horarios de las Clases ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a los horarios de las Clases");
             System.out.println("error " + e.getMessage());
             e.printStackTrace();
         }
         return listaHorarios;
     }
      
-     public List<LocalTime> listarHorariosDisponibles() {
+    public List<LocalTime> listarHorariosDisponibles() {
         List<LocalTime> horariosDisponibles = new ArrayList<>();
         List<LocalTime> horariosOcupados = listarHorariosClasesActivas();
-        List<LocalTime> listaHorarios = new ArrayList<>();
-
+        
         LocalTime inicio = LocalTime.of(8, 0);
         LocalTime fin = LocalTime.of(20, 0);
         for (LocalTime time = inicio; !time.isAfter(fin); time = time.plusHours(1)) {
             horariosDisponibles.add(time);
         }
-  
 
-          for (LocalTime horario : horariosOcupados) {
-             
-            if (horariosDisponibles.contains(horario)) {
-                horariosDisponibles.remove(horario);
-                
-            }
-        }
-             
+        horariosDisponibles.removeAll(horariosOcupados);
+
         return horariosDisponibles;
-    }
+    
+}
      
      
      public void decrementarCapacidad(int IdClase) {
