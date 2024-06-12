@@ -38,43 +38,29 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
         jtTelefono = new javax.swing.JTextField();
         jbLimpiar = new javax.swing.JButton();
 
-        jDesktopPane1.setBackground(new java.awt.Color(75, 102, 113));
         jDesktopPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
-        jSeparator1.setBackground(new java.awt.Color(204, 204, 204));
-        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
-
-        jLabel1.setFont(new java.awt.Font("Ebrima", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 18)); // NOI18N
         jLabel1.setText("Crear Nuevo Socio");
 
-        jLabel2.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel2.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
         jLabel2.setText("DNI");
 
-        jLabel3.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
         jLabel3.setText("Nombre");
 
-        jLabel4.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
         jLabel4.setText("Apellido");
 
-        jLabel5.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel5.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
         jLabel5.setText("Edad");
 
-        jLabel6.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel6.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
         jLabel6.setText("Correo");
 
-        jLabel7.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel7.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
         jLabel7.setText("Telefono");
 
-        jtDni.setBackground(new java.awt.Color(204, 204, 204));
-        jtDni.setForeground(new java.awt.Color(102, 102, 102));
         jtDni.setText("Ingrese 8 digitos");
         jtDni.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -82,13 +68,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
             }
         });
 
-        jtNombre.setBackground(new java.awt.Color(204, 204, 204));
-
-        jtApellido.setBackground(new java.awt.Color(204, 204, 204));
-
-        jbSalir.setBackground(new java.awt.Color(51, 51, 51));
-        jbSalir.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jbSalir.setForeground(new java.awt.Color(204, 204, 204));
+        jbSalir.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,9 +76,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
             }
         });
 
-        jbGuardar.setBackground(new java.awt.Color(51, 51, 51));
-        jbGuardar.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jbGuardar.setForeground(new java.awt.Color(204, 204, 204));
+        jbGuardar.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,17 +84,12 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
             }
         });
 
-        jtEdad.setBackground(new java.awt.Color(204, 204, 204));
-
-        jtCorreo.setBackground(new java.awt.Color(204, 204, 204));
         jtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtCorreoActionPerformed(evt);
             }
         });
 
-        jtTelefono.setBackground(new java.awt.Color(204, 204, 204));
-        jtTelefono.setForeground(new java.awt.Color(102, 102, 102));
         jtTelefono.setText("Numero con o sin prefijo");
         jtTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -124,9 +97,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
             }
         });
 
-        jbLimpiar.setBackground(new java.awt.Color(51, 51, 51));
-        jbLimpiar.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jbLimpiar.setForeground(new java.awt.Color(204, 204, 204));
+        jbLimpiar.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
         jbLimpiar.setText("Limpiar");
         jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

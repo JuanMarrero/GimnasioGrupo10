@@ -136,7 +136,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu4.add(jmNuevaMem);
 
-        jMenuItem12.setText("Getión");
+        jMenuItem12.setText("Gestion");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem12ActionPerformed(evt);
