@@ -1,84 +1,57 @@
 package gimnasiogrupo10.vistas;
 
-import gimnasiogrupo10.entidades.*;
 import gimnasiogrupo10.AccesoADatos.*;
-import java.util.ArrayList;
-import java.util.List;
+import gimnasiogrupo10.entidades.*;
+import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author gomez
- */
+
 public class gestionClase extends javax.swing.JInternalFrame {
-  private DefaultTableModel modelo;
-  
-  ClasesData cD = new ClasesData();
-  
-  Clases clase = new Clases();
-  
-  List <Clases> listaC;
-  List <Entrenadores> listaE;
-  
-  EntrenadoresData eD = new EntrenadoresData();
-  
-  
-  public gestionClase() {
-        initComponents();
-        modelo = new DefaultTableModel();
-        armarCabeceraTabla();
-        listaE = eD.listarEntrenadores();
-        listaC = cD.listarClases();    
-        
-        
-        cargarEntrenador();
-        cargarClases();
-    }
- private void armarCabeceraTabla() {
-        ArrayList<Object> filaCabecera = new ArrayList<>();
-        filaCabecera.add("ID");
-        filaCabecera.add("Nombre");
-        filaCabecera.add("Entrenador");
-        filaCabecera.add("Capacidad");
-        filaCabecera.add("Estado");
-        filaCabecera.add("Horario");
-        for (Object it : filaCabecera) {
-            modelo.addColumn(it);
-        }
-        jtClases.setModel(modelo);
-    }
+
+    List<Entrenadores> listaE;
+    List<Clases> listaC;
     
+    private EntrenadoresData eData=new EntrenadoresData();
+    private ClasesData cData=new ClasesData();
+    
+    private DefaultTableModel tablaModelo;
+
+    
+    public gestionClase() {
+        initComponents();
+        
+        tablaModelo=new DefaultTableModel();
+       listaC = cData.listarClases();
+       listaE = eData.listarEntrenadores();
+        
+       armarCabeceraTabla();
+       cargarEntrenadores();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jbBuscar = new javax.swing.JButton();
-        jrbActivas = new javax.swing.JRadioButton();
-        jrbInactivas = new javax.swing.JRadioButton();
-        jrbTodas = new javax.swing.JRadioButton();
+        comboEntrenadores = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtClases = new javax.swing.JTable();
-        jbActualizar = new javax.swing.JButton();
-        jbBaja = new javax.swing.JButton();
-        jbSalir = new javax.swing.JButton();
-        ComboEntrenador = new javax.swing.JComboBox<>();
+        tablaClases = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
-        jLabel1.setText("Gestion Clases");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("Listado de clases por Entrenador");
 
-        jLabel2.setText("Busqueda por entrenador");
+        jLabel2.setText("Seleccione un entrenador");
 
-        jbBuscar.setText("Buscar");
+        comboEntrenadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEntrenadoresActionPerformed(evt);
+            }
+        });
 
-        jrbActivas.setText("Activas");
-
-        jrbInactivas.setText("Inactivas");
-
-        jrbTodas.setText("Todas");
-
-        jtClases.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -89,167 +62,139 @@ public class gestionClase extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jtClases);
+        jScrollPane1.setViewportView(tablaClases);
 
-        jbActualizar.setText("Actualizar");
-        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbActualizarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        jbBaja.setText("Dar baja");
-
-        jbSalir.setText("Salir");
-
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jrbActivas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jrbInactivas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jrbTodas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbActualizar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbBaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(ComboEntrenador, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(204, 204, 204)
-                        .addComponent(jLabel1))
-                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                    .addComponent(jrbActivas)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(jrbInactivas)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jrbTodas))
-                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                    .addGap(22, 22, 22)
-                                    .addComponent(jLabel2)
-                                    .addGap(28, 28, 28)
-                                    .addComponent(ComboEntrenador, 0, 143, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jbBuscar))))
-                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jbActualizar)
-                            .addGap(52, 52, 52)
-                            .addComponent(jbBaja)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbSalir)
-                            .addGap(10, 10, 10))))
-                .addGap(29, 29, 29))
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jbBuscar)
-                    .addComponent(ComboEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbActivas)
-                    .addComponent(jrbInactivas)
-                    .addComponent(jrbTodas))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbActualizar)
-                    .addComponent(jbBaja)
-                    .addComponent(jbSalir))
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setText("CLASES:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(63, 63, 63))))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDesktopPane1)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel2)
+                        .addGap(57, 57, 57)
+                        .addComponent(comboEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDesktopPane1)
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(comboEntrenadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(jLabel3)
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(jButton1)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbActualizarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void comboEntrenadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEntrenadoresActionPerformed
+        // TODO add your handling code here:
+        borrarFilaTabla();
+        cargarClases();
+    }//GEN-LAST:event_comboEntrenadoresActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Entrenadores> ComboEntrenador;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JComboBox<Entrenadores> comboEntrenadores;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbActualizar;
-    private javax.swing.JButton jbBaja;
-    private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbSalir;
-    private javax.swing.JRadioButton jrbActivas;
-    private javax.swing.JRadioButton jrbInactivas;
-    private javax.swing.JRadioButton jrbTodas;
-    private javax.swing.JTable jtClases;
+    private javax.swing.JTable tablaClases;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarEntrenador(){
-        for (Entrenadores entrenador: listaE){
-        ComboEntrenador.addItem(entrenador);
+    private void armarCabeceraTabla(){
+        ArrayList <Object> filaCabecera = new ArrayList<>();
+        filaCabecera.add("ID");
+        filaCabecera.add("Nombre");
+        filaCabecera.add("Entrenador");
+        filaCabecera.add("Horario");
+        filaCabecera.add("Capacidad");
+        filaCabecera.add("Estado");
+        for(Object it: filaCabecera){
+            tablaModelo.addColumn(it);
+        }
+        
+        tablaClases.setModel(tablaModelo);
+    }
+
+    private void cargarEntrenadores(){
+        for (Entrenadores entrenadores: listaE){
+        comboEntrenadores.addItem(entrenadores);
         }
     }
 
     private void cargarClases(){
       
         
-      Entrenadores entrenadorSeleccionado =  (Entrenadores) ComboEntrenador.getSelectedItem();
-        
-       if(entrenadorSeleccionado != null){
+        Entrenadores entrenadorSeleccionado =  (Entrenadores) comboEntrenadores.getSelectedItem();
         
         int ID_Entrenador = entrenadorSeleccionado.getID_Entrenador();
         
-        Clases clase1 = cD.buscarClasesPorEntrenador(ID_Entrenador);
         
-        if (clase1 != null) {
-            modelo.setRowCount(0);
-         
-           modelo.addRow(new Object[]{clase1.getID_Clase(),clase1.getNombre(),clase1.getEntrenadores(),clase1.getCapacidad(),clase1.isEstado()});
-            }else {
-            System.out.println("No hay clases para este entrenador");
-            }
-        
-             }else{
-           
-           System.out.println("Por favor seleccionar un entrenador");
-            }
-    
-    }
-}
+        listaC = cData.buscarClasesPorEntrenador(ID_Entrenador);
 
+        if (listaC.isEmpty()) {
+            
+        System.out.println("no se encuentran clases para ese entrenador");        
+    }
+        for (Clases a: listaC){
+         
+           tablaModelo.addRow(new Object[]{a.getID_Clase(),a.getNombre(),a.getEntrenadores().getNombre(),a.getHorario(),a.getCapacidad(),a.isEstado()});
+            
+
+            }
+        }
+    
+   private void borrarFilaTabla(){
+        int indice = tablaModelo.getRowCount()-1;
+        
+        for (int i = indice;i>=0;i--){
+            tablaModelo.removeRow(i);
+        }
+    }    
+
+    
+    
+}

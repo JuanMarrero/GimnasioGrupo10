@@ -45,7 +45,7 @@ public class EntrenadoresData {
     
         public List<Entrenadores> listarEntrenadores(){
         
-        String sql="SELECT ID_Entrenador, Nombre, Apellido, DNI, Especialidad FROM entrenadores WHERE Estado = 1";
+        String sql="SELECT * FROM entrenadores WHERE Estado = 1";
         
         ArrayList<Entrenadores> entrenadores=new ArrayList<>(); //iniciamos un array de entrenadores vacio
         
@@ -63,7 +63,7 @@ public class EntrenadoresData {
                     entrenador.setApellido(rs.getString("Apellido"));
                     entrenador.setNombre(rs.getString("Nombre"));
                     entrenador.setEspecialidad(rs.getString("Especialidad"));
-                    entrenador.setEstado(true);
+                    entrenador.setEstado(rs.getBoolean("Estado"));
 
                     entrenadores.add(entrenador);
                 }
@@ -145,7 +145,7 @@ public class EntrenadoresData {
         
         public Entrenadores buscarEntrenadorPorID(int ID_Entrenador){
         
-        String sql="SELECT ID_Entrenador, DNI, Apellido, Nombre, Especialidad FROM entrenadores WHERE ID_Entrenador = ? AND Estado = 1";
+        String sql="SELECT * FROM entrenadores WHERE ID_Entrenador = ? AND Estado = 1";
         
         Entrenadores entrenador=null; //iniciamos un entrenador vacio
         
@@ -163,6 +163,7 @@ public class EntrenadoresData {
                     entrenador.setNombre(rs.getString("Nombre"));
                     entrenador.setDNI(rs.getInt("DNI"));
                     entrenador.setEspecialidad(rs.getString("Especialidad"));
+                    entrenador.setEstado(rs.getBoolean("Estado"));
                     
 
                 }else{

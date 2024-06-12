@@ -18,7 +18,7 @@ public class SocioData {
     public void guardarSocio(Socios socio){
         
         
-       String sql="INSERT INTO Socios (DNI, Nombre, Apellido, Edad, Correo, Telefono, Estado)"
+       String sql="INSERT INTO socios (DNI, Nombre, Apellido, Edad, Correo, Telefono, Estado)"
                + "VALUES (?,?,?,?,?,?,?)";
         
         try {
@@ -49,7 +49,7 @@ public class SocioData {
     
     public Socios buscarSocio(int id){
         
-        String sql="SELECT DNI, Apellido, Nombre, Edad FROM socios WHERE Id_Socio = ? AND Estado = 1";
+        String sql="SELECT DNI, Apellido, Nombre, Edad, Estado FROM socios WHERE Id_Socio = ? AND Estado = 1";
         
         Socios socio=null; //iniciamos un socio vacio
         
@@ -65,10 +65,44 @@ public class SocioData {
                     
                     socio.setID_Socio(id);
                     socio.setDNI(rs.getInt("DNI"));
-                    socio.setApellido(rs.getString("apellido"));
+                    socio.setApellido(rs.getString("Apellido"));
                     socio.setNombre(rs.getString("Nombre"));
                     socio.setEdad(rs.getInt("Edad"));
-                    socio.setEstado(true);
+                    socio.setEstado(rs.getBoolean("Estado"));
+                }else{
+                    
+                    JOptionPane.showMessageDialog(null, "El Socio no existe");
+                }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Socios");
+        }
+        return socio;
+    
+    }
+    
+    public Socios buscarSocioPorNombre(String Nombre){
+        
+        String sql="SELECT DNI, Apellido, Nombre, Edad, Estado FROM socios WHERE Nombre = ? AND Estado = 1";
+        
+        Socios socio=null; //iniciamos un socio vacio
+        
+        try {
+             PreparedStatement ps = con.prepareStatement(sql) ;
+                ps.setString(1, Nombre);
+                
+                ResultSet rs=ps.executeQuery();
+                
+                if(rs.next()){
+                    
+                    socio=new Socios(); //creamos un Socio vacio
+                    
+                    socio.setNombre(Nombre);
+                    socio.setDNI(rs.getInt("DNI"));
+                    socio.setApellido(rs.getString("Apellido"));
+                    socio.setID_Socio(rs.getInt("ID_Socio"));
+                    socio.setEdad(rs.getInt("Edad"));
+                    socio.setEstado(rs.getBoolean("Estado"));
                 }else{
                     
                     JOptionPane.showMessageDialog(null, "El Socio no existe");
@@ -83,7 +117,7 @@ public class SocioData {
     
     public Socios buscarSocioXDni(int DNI){
         
-        String sql="SELECT DNI, Apellido, Nombre, Edad FROM socios WHERE DNI = ? AND Estado = 1";
+        String sql="SELECT * FROM socios WHERE DNI = ? AND Estado = 1";
         
         Socios socio=null; //iniciamos un socio vacio
         
@@ -100,10 +134,10 @@ public class SocioData {
                     socio.setID_Socio(rs.getInt("ID_Socio"));
                     socio.setDNI(DNI);
                     socio.setDNI(rs.getInt("DNI"));
-                    socio.setApellido(rs.getString("apellido"));
+                    socio.setApellido(rs.getString("Apellido"));
                     socio.setNombre(rs.getString("Nombre"));
                     socio.setEdad(rs.getInt("Edad"));
-                    socio.setEstado(true);
+                    socio.setEstado(rs.getBoolean("Estado"));
                 }else{
                     
                     JOptionPane.showMessageDialog(null, "El Socio no existe");
@@ -148,7 +182,7 @@ public class SocioData {
     
     public void borrarSocio(int id){
         
-       String sql="UPDATE Socios SET Estado = 0 WHERE ID_Socio = ?";
+       String sql="UPDATE socios SET Estado = 0 WHERE ID_Socio = ?";
        
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -170,5 +204,29 @@ public class SocioData {
         
     }
     
-}
+    public void restarPase(int idSocio) {
+        
+        String sql = "UPDATE membresias SET CantidadPases = CantidadPases - 1 WHERE ID_Socio = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, idSocio);
+            
+            int rows = ps.executeUpdate();
+            
+            if (rows > 0) {
+                JOptionPane.showMessageDialog(null, "Se ha restado un pase correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró al socio con ID " + idSocio);
+            }
+            
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al restar un pase: " + ex.getMessage());
+        }
+    }
+    
+
    
+}
