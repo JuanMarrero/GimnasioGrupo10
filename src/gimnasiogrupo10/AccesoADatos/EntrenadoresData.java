@@ -72,7 +72,9 @@ public class EntrenadoresData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Entrenadores");
         }
         return entrenadores;
-    }    
+    }   
+        
+ 
     
         public Entrenadores buscarEntrenadorPorNombre(String Nombre, String apellido){
         
