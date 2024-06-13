@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class gestionMembresia extends javax.swing.JInternalFrame {
-    private MembresiasData membresiaData;
+    private MembresiasData membresiaData = new MembresiasData();;
     private SocioData sData=new SocioData();
     private Socios socioSelec;
     private Membresias Membresia;
@@ -219,7 +219,7 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
             membresiaData.obtenerInscripcionesPorSocio(id);
             for (Membresias a: listaMTodas){
          
-           tablaModelo.addRow(new Object[]{a.getID_Clase(),a.getNombre(),a.getEntrenadores().getNombre(),a.getHorario(),a.getCapacidad(),a.isEstado()});
+           tablaModelo.addRow(new Object[]{a.getID_Membresia(),a.getCosto(),a.getCantidadDePases(),a.getFecha_Inicio(),a.getFecha_Fin(),a.getSocio()});
             
 
             }
