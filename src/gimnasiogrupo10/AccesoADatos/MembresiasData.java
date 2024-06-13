@@ -187,7 +187,7 @@ public class MembresiasData {
     }
     
     
-    public void cancelarMembresia(int ID_Membresia) {
+    public boolean cancelarMembresia(int ID_Membresia) {
         String sql = "UPDATE membresias SET Estado = FALSE WHERE ID_Membresia = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -209,7 +209,9 @@ public class MembresiasData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al cancelar la membresía: " + ex.getMessage());
         }
-     }
+         return false;
+    }
+    
         
         
 }

@@ -83,7 +83,7 @@ public class Clases {
 
     @Override
     public String toString() {
-        return Nombre + ", entrenadores=" + entrenadores + ", Horario=" + Horario ;
+        return Nombre  ;
     }
     
     
