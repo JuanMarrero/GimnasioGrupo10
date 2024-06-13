@@ -65,7 +65,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="jtDni" min="-2" pref="196" max="-2" attributes="0"/>
+                                              <Component id="jtID" min="-2" pref="196" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                               <Component id="jbBuscar" min="-2" pref="74" max="-2" attributes="0"/>
                                           </Group>
@@ -94,7 +94,7 @@
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtDni" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtID" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbBuscar" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -122,7 +122,7 @@
             <Property name="text" type="java.lang.String" value="ID Socio"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtDni">
+        <Component class="javax.swing.JTextField" name="jtID">
         </Component>
         <Component class="javax.swing.JButton" name="jbBuscar">
           <Properties>
@@ -136,6 +136,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Inactivas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbInactivasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jrbTodas">
           <Properties>
@@ -150,6 +153,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Activas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbActivasActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
@@ -167,6 +173,33 @@
                     <Column editable="true" title="Title 3" type="java.lang.Object"/>
                     <Column editable="true" title="Title 4" type="java.lang.Object"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
             </Component>

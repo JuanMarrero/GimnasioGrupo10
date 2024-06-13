@@ -11,16 +11,17 @@ import javax.swing.table.DefaultTableModel;
 
 public class gestionMembresia extends javax.swing.JInternalFrame {
     private MembresiasData membresiaData = new MembresiasData();;
-    private SocioData sData=new SocioData();
-    private Socios socioSelec;
     private Membresias Membresia;
     private DefaultTableModel tablaModelo;
+    
     List<Membresias> listaMTodas;
-     List<Membresias> listaMActivas;
-      List<Membresias> listaMInactivas;
+    List<Membresias> listaMActivas;
+    List<Membresias> listaMInactivas;
+      
     public gestionMembresia() {
     initComponents();
     tablaModelo=new DefaultTableModel();
+    armarCabeceraTabla();
     listaMInactivas = membresiaData.obtenerInactivasInscripcionesPorSocio(WIDTH);
     listaMActivas = membresiaData.obtenerActivasInscripcionesPorSocio(WIDTH);
     listaMTodas = membresiaData.obtenerInscripcionesPorSocio(WIDTH);
@@ -54,7 +55,7 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
 
         jDesktopPane2 = new javax.swing.JDesktopPane();
         jLabel4 = new javax.swing.JLabel();
-        jtDni = new javax.swing.JTextField();
+        jtID = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
         jrbInactivas = new javax.swing.JRadioButton();
         jrbTodas = new javax.swing.JRadioButton();
@@ -77,6 +78,11 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         });
 
         jrbInactivas.setText("Inactivas");
+        jrbInactivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbInactivasActionPerformed(evt);
+            }
+        });
 
         jrbTodas.setSelected(true);
         jrbTodas.setText("Todas");
@@ -87,6 +93,11 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         });
 
         jrbActivas.setText("Activas");
+        jrbActivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbActivasActionPerformed(evt);
+            }
+        });
 
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,7 +130,7 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
 
         jDesktopPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jtDni, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jtID, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jrbInactivas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jrbTodas, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -161,7 +172,7 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
                                     .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
                                         .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                                            .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(43, 43, 43)
                                             .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -180,7 +191,7 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -214,12 +225,14 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        int id = Integer.parseInt(jtDni.getText());
+        int id = Integer.parseInt(jtID.getText());
         if(jrbTodas.isSelected()){
-            membresiaData.obtenerInscripcionesPorSocio(id);
+        listaMTodas=membresiaData.obtenerInscripcionesPorSocio(id);
+        
             for (Membresias a: listaMTodas){
          
-           tablaModelo.addRow(new Object[]{a.getID_Membresia(),a.getCosto(),a.getCantidadDePases(),a.getFecha_Inicio(),a.getFecha_Fin(),a.getSocio()});
+           tablaModelo.addRow(new Object[]{a.getID_Membresia(),a.getCosto(),a.getCantidadDePases()
+                   ,a.getFecha_Inicio(),a.getFecha_Fin(),a.getSocio()});
             
 
             }
@@ -242,8 +255,23 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jrbTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTodasActionPerformed
+        jrbActivas.setSelected(false);
+        jrbInactivas.setSelected(false);
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jrbTodasActionPerformed
+
+    private void jrbInactivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbInactivasActionPerformed
+        jrbTodas.setSelected(false);
+        jrbActivas.setSelected(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrbInactivasActionPerformed
+
+    private void jrbActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbActivasActionPerformed
+        jrbTodas.setSelected(false);
+        jrbInactivas.setSelected(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrbActivasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -259,7 +287,7 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jrbActivas;
     private javax.swing.JRadioButton jrbInactivas;
     private javax.swing.JRadioButton jrbTodas;
-    private javax.swing.JTextField jtDni;
+    private javax.swing.JTextField jtID;
     private javax.swing.JTable jtTabla;
     // End of variables declaration//GEN-END:variables
 
