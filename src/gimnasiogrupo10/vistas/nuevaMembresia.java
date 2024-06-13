@@ -1,323 +1,262 @@
+
 package gimnasiogrupo10.vistas;
 
-import gimnasiogrupo10.entidades.*;
 import gimnasiogrupo10.AccesoADatos.*;
+import gimnasiogrupo10.entidades.*;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
-public class nuevaMembresia extends javax.swing.JInternalFrame {
 
-    private MembresiasData membresiaData;
-    private SocioData sData=new SocioData();
-    private Socios socioN;
-    private Membresias nuevaMembresia;
+public class nuevaMembresia extends javax.swing.JInternalFrame {
+    
+    private SocioData socioData;
+    private ClasesData clasesData;
+    private MembresiasData membresiasData;
 
     public nuevaMembresia() {
+        
         initComponents();
+        
+        socioData = new SocioData();
+        clasesData = new ClasesData();
+        membresiasData = new MembresiasData();
+        
+        cargarClases();
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        textSocio = new javax.swing.JTextField();
+        botonBuscar = new javax.swing.JButton();
+        textresultado = new javax.swing.JTextField();
+        comboPases = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        dateInscripcion = new com.toedter.calendar.JDateChooser();
+        dateVencimiento = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
+        botonGuardar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jtIDSocio = new javax.swing.JTextField();
-        jcPases = new javax.swing.JComboBox();
-        jbSalir = new javax.swing.JButton();
-        jbGuardar = new javax.swing.JButton();
+        textCosto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jtCosto = new javax.swing.JTextField();
-        jbLimpiar = new javax.swing.JButton();
-        jtNombreSocio = new javax.swing.JTextField();
-        jbBuscarSocio = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jDateInscripcion = new com.toedter.calendar.JDateChooser();
-        jDateVencimiento = new com.toedter.calendar.JDateChooser();
+        comboClase = new javax.swing.JComboBox<>();
 
-        jLabel4.setText("jLabel4");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("Nueva Membresia");
 
-        jDesktopPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jDesktopPane1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("ID SOCIO:");
 
-        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel1.setFont(new java.awt.Font("Ebrima", 1, 18)); // NOI18N
-        jLabel1.setText("Crear Nueva Membresia");
-
-        jLabel2.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel2.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
-        jLabel2.setText("ID socio");
-
-        jLabel3.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel3.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
-        jLabel3.setText("Cantidad Pases");
-
-        jLabel5.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel5.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
-        jLabel5.setText("Fecha Insc");
-
-        jLabel6.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel6.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
-        jLabel6.setText("Fecha Venc");
-
-        jtIDSocio.setBackground(new java.awt.Color(204, 204, 204));
-        jtIDSocio.setSelectedTextColor(new java.awt.Color(51, 51, 51));
-        jtIDSocio.addActionListener(new java.awt.event.ActionListener() {
+        botonBuscar.setText("Buscar");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtIDSocioActionPerformed(evt);
+                botonBuscarActionPerformed(evt);
             }
         });
 
-        jcPases.setBackground(new java.awt.Color(204, 204, 204));
-        jcPases.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12", "15", "30" }));
+        comboPases.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "12", "20" }));
 
-        jbSalir.setBackground(new java.awt.Color(204, 204, 204));
-        jbSalir.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setText("Pases");
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setText("Inscripcion");
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel5.setText("Vencimiento");
+
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        jbGuardar.setBackground(new java.awt.Color(204, 204, 204));
-        jbGuardar.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jbGuardar.setText("Guardar");
-        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+        botonGuardar.setText("Guardar");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbGuardarActionPerformed(evt);
+                botonGuardarActionPerformed(evt);
             }
         });
 
-        jLabel7.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel7.setFont(new java.awt.Font("Microsoft YaHei", 1, 14)); // NOI18N
-        jLabel7.setText("Costo");
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setText("Costo");
 
-        jtCosto.setBackground(new java.awt.Color(204, 204, 204));
-        jtCosto.setCaretColor(new java.awt.Color(204, 204, 204));
-        jtCosto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtCostoActionPerformed(evt);
-            }
-        });
-
-        jbLimpiar.setBackground(new java.awt.Color(204, 204, 204));
-        jbLimpiar.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        jbLimpiar.setText("Limpiar");
-        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbLimpiarActionPerformed(evt);
-            }
-        });
-
-        jtNombreSocio.setBackground(new java.awt.Color(204, 204, 204));
-
-        jbBuscarSocio.setBackground(new java.awt.Color(204, 204, 204));
-        jbBuscarSocio.setText("Buscar");
-        jbBuscarSocio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarSocioActionPerformed(evt);
-            }
-        });
-
-        jSeparator1.setBackground(new java.awt.Color(204, 204, 204));
-
-        jDateInscripcion.setBackground(new java.awt.Color(204, 204, 204));
-
-        jDateVencimiento.setBackground(new java.awt.Color(204, 204, 204));
-
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtIDSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jcPases, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtCosto, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbLimpiar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtNombreSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbBuscarSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jSeparator1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jDateInscripcion, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jDateVencimiento, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
-                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jtCosto, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jcPases, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateInscripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jtNombreSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(141, 141, 141)))
-                .addGap(43, 43, 43))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addComponent(jLabel1))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
-                        .addGap(29, 29, 29)
-                        .addComponent(jDateVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel2)
-                        .addGap(27, 27, 27)
-                        .addComponent(jtIDSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbBuscarSocio)))
-                .addGap(67, 67, 67))
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(1, 1, 1)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtIDSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jtNombreSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbBuscarSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)))
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jcPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jDateInscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jDateVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSalir)
-                    .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbLimpiar))
-                .addGap(23, 23, 23))
-        );
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel7.setText("Clase");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(textresultado, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonGuardar)
+                                .addGap(115, 115, 115)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(105, 105, 105)
+                                                .addComponent(jLabel1))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(32, 32, 32)
+                                                .addComponent(textSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(33, 33, 33)
+                                        .addComponent(botonBuscar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(comboClase, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addGap(28, 28, 28)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(dateVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel3)
+                                                    .addComponent(dateInscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(textCosto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(comboPases, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel5))
+                                .addGap(15, 15, 15)))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(textSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBuscar))
+                .addGap(18, 18, 18)
+                .addComponent(textresultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(comboPases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(comboClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(textCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dateInscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dateVencimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(botonGuardar)))
+                    .addComponent(jLabel4))
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtCostoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtCostoActionPerformed
-
-    private void jtIDSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtIDSocioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtIDSocioActionPerformed
-
-    private void jbBuscarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarSocioActionPerformed
-
-         int id = Integer.parseInt(jtIDSocio.getText());
-         //   Socios socioN = sData.buscarSocio(id);
-         jtNombreSocio.setText( sData.buscarSocio(id).getNombre()); 
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+             try {
+            int idSocio = Integer.parseInt(textSocio.getText());
+            Socios socio = socioData.buscarSocio(idSocio);
+            if (socio != null) {
+                textresultado.setText(socio.toString());
+            } else {
+                JOptionPane.showMessageDialog(this, "Socio no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID válido", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar socio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     
-    }//GEN-LAST:event_jbBuscarSocioActionPerformed
+    }//GEN-LAST:event_botonBuscarActionPerformed
 
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
         dispose();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbSalirActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-    String iD = jtIDSocio.getText();
-    if(iD.isEmpty()){
-         JOptionPane.showMessageDialog(rootPane, "No pueden haber campos vacios.");
-}
-    else{
-    int id = Integer.parseInt(jtIDSocio.getText());
-    Socios socio =sData.buscarSocio(id);
-    double Costo = Double.parseDouble(jtCosto.getText());
-    String seleccion = jcPases.getSelectedItem().toString();
-    int CantidadDePases = Integer.parseInt(seleccion);
-    Date Fecha_Inicio = jDateInscripcion.getDate();
-    Date Fecha_Fin = jDateVencimiento.getDate();
-    boolean Estado = true;
-    
-    nuevaMembresia = new Membresias(socio,null, Costo, CantidadDePases,Fecha_Inicio,Fecha_Fin,Estado);
-     limpiarCampos();
-      JOptionPane.showMessageDialog(rootPane, "Membresias Asignada Correctamente");
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+     try {
+        // Obtener datos de la interfaz
+        int idSocio = Integer.parseInt(textSocio.getText());
+        int cantidadPases = Integer.parseInt(comboPases.getSelectedItem().toString());
+        double costo = Double.parseDouble(textCosto.getText().trim());
+        Date fechaInscripcion = dateInscripcion.getDate();
+        Date fechaVencimiento = dateVencimiento.getDate();
+
+        // Validación simple de datos
+        if (idSocio <= 0 || costo <= 0 || fechaInscripcion == null || fechaVencimiento == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios y deben ser válidos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear instancia de Membresia
+        Socios socio = socioData.buscarSocio(idSocio);
+        if (socio == null) {
+            JOptionPane.showMessageDialog(this, "Socio no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Clases clase = (Clases) comboClase.getSelectedItem();
+        int idClase = clase.getID_Clase();
+        Membresias membresia = new Membresias(socio, clase, costo, cantidadPases, fechaInscripcion, fechaVencimiento, true);
+
+        // Guardar la membresía en la base de datos
+        membresiasData.guardarInscripcion(membresia);
+
+        JOptionPane.showMessageDialog(this, "Membresía guardada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos", "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar la membresía: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
     }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbGuardarActionPerformed
-
-    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
-
-      limpiarCampos();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbLimpiarActionPerformed
-
-    private void limpiarCampos() {
-        jtIDSocio.setText("");
-        jtNombreSocio.setText("");
-        jtCosto.setText("");
+  
         
+    }//GEN-LAST:event_botonGuardarActionPerformed
 
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser jDateInscripcion;
-    private com.toedter.calendar.JDateChooser jDateVencimiento;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonGuardar;
+    private javax.swing.JComboBox<Clases> comboClase;
+    private javax.swing.JComboBox<String> comboPases;
+    private com.toedter.calendar.JDateChooser dateInscripcion;
+    private com.toedter.calendar.JDateChooser dateVencimiento;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -325,14 +264,20 @@ public class nuevaMembresia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton jbBuscarSocio;
-    private javax.swing.JButton jbGuardar;
-    private javax.swing.JButton jbLimpiar;
-    private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox jcPases;
-    private javax.swing.JTextField jtCosto;
-    private javax.swing.JTextField jtIDSocio;
-    private javax.swing.JTextField jtNombreSocio;
+    private javax.swing.JTextField textCosto;
+    private javax.swing.JTextField textSocio;
+    private javax.swing.JTextField textresultado;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarClases() {
+        try {
+            List<Clases> clases = clasesData.listarClases(); // Obtener la lista de clases desde la base de datos
+            for (Clases clase : clases) {
+                comboClase.addItem(clase);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar las clases: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }

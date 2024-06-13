@@ -17,35 +17,33 @@ public class MembresiasData {
         con=Conexion.getConexion();
     }   
     
-    public void guardarInscripcion(Membresias insc){
-    
-        String sql="INSERT INTO membresias(ID_Socio, ID_Clase, Costo, CantidadDePases, Fecha_Inicio, Fecha_Fin, Estado) VALUES (?,?,?,?,?,?,?)";
-        try {
-            try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    public void guardarInscripcion(Membresias insc) {
 
-                ps.setInt(1, insc.getSocio().getID_Socio());
-                ps.setInt(2, insc.getClase().getID_Clase());
-                ps.setDouble(3, insc.getCosto());
-                ps.setInt(4, insc.getCantidadDePases());
-                ps.setDate(5, new java.sql.Date(insc.getFecha_Inicio().getTime()));
-                ps.setDate(6, new java.sql.Date(insc.getFecha_Fin().getTime()));
-                ps.setBoolean(7, insc.isEstado());
-                
-                ps.executeUpdate();
-                
-                ResultSet rs=ps.getGeneratedKeys();
-                
-                if (rs.next()){
-                    
-                    insc.setID_Membresia(rs.getInt(1));
-                    JOptionPane.showMessageDialog(null, "Inscripcion Registrada");
-                }
-                ps.close();
+
+    String sql = "INSERT INTO membresias(ID_Socio,ID_Clase, Costo, CantidadPases, Fecha_Inicio, Fecha_Fin, Estado) VALUES (?,?,?,?,?,?,?)";
+    try {
+        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, insc.getSocio().getID_Socio());
+            ps.setInt(2, insc.getClase().getID_Clase());
+            ps.setDouble(3, insc.getCosto());
+            ps.setInt(4, insc.getCantidadPases());
+            ps.setDate(5, new java.sql.Date(insc.getFecha_Inicio().getTime()));
+            ps.setDate(6, new java.sql.Date(insc.getFecha_Fin().getTime()));
+            ps.setBoolean(7, insc.isEstado());
+            
+            ps.executeUpdate();
+            
+            ResultSet rs = ps.getGeneratedKeys();
+            
+            if (rs.next()) {
+                insc.setID_Membresia(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Inscripción Registrada");
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al conectarse a la tabla Membresias");
         }
-    }  
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al conectarse a la tabla Membresias: " + ex.getMessage());
+    }
+}  
     
     public List<Membresias> obtenerInscripcionesPorSocio(int ID_Socio){
         
@@ -65,7 +63,7 @@ public class MembresiasData {
                     
                     insc.setID_Membresia(rs.getInt("ID_Membresia"));
                     insc.setCosto(rs.getDouble("Costo"));
-                    insc.setCantidadDePases(rs.getInt("CantidadDePases"));
+                    insc.setCantidadPases(rs.getInt("CantidadPases"));
                     insc.setFecha_Inicio(rs.getDate("Fecha_Inicio"));
                     insc.setFecha_Fin(rs.getDate("Fecha_Fin"));
                     insc.setEstado(rs.getBoolean("Estado"));                    
@@ -103,7 +101,7 @@ public class MembresiasData {
                     
                     insc.setID_Membresia(rs.getInt("ID_Membresia"));
                     insc.setCosto(rs.getDouble("Costo"));
-                    insc.setCantidadDePases(rs.getInt("CantidadDePases"));
+                    insc.setCantidadPases(rs.getInt("CantidadPases"));
                     insc.setFecha_Inicio(rs.getDate("Fecha_Inicio"));
                     insc.setFecha_Fin(rs.getDate("Fecha_Fin"));
                     insc.setEstado(rs.getBoolean("Estado"));                    
@@ -141,7 +139,7 @@ public class MembresiasData {
                     
                     insc.setID_Membresia(rs.getInt("ID_Membresia"));
                     insc.setCosto(rs.getDouble("Costo"));
-                    insc.setCantidadDePases(rs.getInt("CantidadDePases"));
+                    insc.setCantidadPases(rs.getInt("CantidadPases"));
                     insc.setFecha_Inicio(rs.getDate("Fecha_Inicio"));
                     insc.setFecha_Fin(rs.getDate("Fecha_Fin"));
                     insc.setEstado(rs.getBoolean("Estado"));                    

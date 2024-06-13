@@ -13,7 +13,7 @@ public class Membresias {
     private Socios socio;
     private Clases clase;
     private double Costo;
-    private int CantidadDePases;
+    private int CantidadPases;
     private Date Fecha_Inicio;
     private Date Fecha_Fin;
     private boolean Estado;
@@ -21,22 +21,22 @@ public class Membresias {
     public Membresias() {
     }
 
-    public Membresias(int ID_Membresia, Socios socio, Clases clase, double Costo, int CantidadDePases, Date Fecha_Inicio, Date Fecha_Fin, boolean Estado) {
+    public Membresias(int ID_Membresia, Socios socio, Clases clase, double Costo, int CantidadPases, Date Fecha_Inicio, Date Fecha_Fin, boolean Estado) {
         this.ID_Membresia = ID_Membresia;
         this.socio = socio;
         this.clase = clase;
         this.Costo = Costo;
-        this.CantidadDePases = CantidadDePases;
+        this.CantidadPases = CantidadPases;
         this.Fecha_Inicio = Fecha_Inicio;
         this.Fecha_Fin = Fecha_Fin;
         this.Estado = Estado;
     }
 
-    public Membresias(Socios socio, Clases clase, double Costo, int CantidadDePases, Date Fecha_Inicio, Date Fecha_Fin, boolean Estado) {
+    public Membresias(Socios socio, Clases clase, double Costo, int CantidadPases, Date Fecha_Inicio, Date Fecha_Fin, boolean Estado) {
         this.socio = socio;
         this.clase = clase;
         this.Costo = Costo;
-        this.CantidadDePases = CantidadDePases;
+        this.CantidadPases = CantidadPases;
         this.Fecha_Inicio = Fecha_Inicio;
         this.Fecha_Fin = Fecha_Fin;
         this.Estado = Estado;
@@ -74,12 +74,12 @@ public class Membresias {
         this.Costo = Costo;
     }
 
-    public int getCantidadDePases() {
-        return CantidadDePases;
+    public int getCantidadPases() {
+        return CantidadPases;
     }
 
-    public void setCantidadDePases(int CantidadDePases) {
-        this.CantidadDePases = CantidadDePases;
+    public void setCantidadPases(int CantidadPases) {
+        this.CantidadPases = CantidadPases;
     }
 
     public Date getFecha_Inicio() {
@@ -108,7 +108,7 @@ public class Membresias {
 
     @Override
     public String toString() {
-        return  ID_Membresia + "," + socio + "," + clase + "," + CantidadDePases + "," + Fecha_Inicio + "," + Fecha_Fin + "," + Estado;
+        return  ID_Membresia + "," + socio + "," + clase + "," + CantidadPases + "," + Fecha_Inicio + "," + Fecha_Fin + "," + Estado;
     }
     
     

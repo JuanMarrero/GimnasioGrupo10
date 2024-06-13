@@ -38,7 +38,7 @@ public class EntrenadoresData {
                ps.close();
            }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla entrenadores");
+           
         }
 
     }
@@ -69,7 +69,7 @@ public class EntrenadoresData {
                 }
                 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Entrenadores");
+           
         }
         return entrenadores;
     }   
@@ -104,7 +104,7 @@ public class EntrenadoresData {
                 }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Entrenador");
+            
         }
         return entrenador;
     
@@ -139,7 +139,7 @@ public class EntrenadoresData {
                 }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Entrenador");
+            
         }
         return entrenador;
     
@@ -174,7 +174,7 @@ public class EntrenadoresData {
                 }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Entrenador");
+            
         }
         return entrenador;
     
@@ -236,9 +236,7 @@ public class EntrenadoresData {
             JOptionPane.showMessageDialog(null, "No se encontró el entrenador");
             }
         }catch (SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Entrenador ");
-            System.out.println("error " + ex.getMessage());
-            ex.printStackTrace();
+
         }
     
     return entrenadores;}
@@ -275,9 +273,7 @@ public class EntrenadoresData {
             ps.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Entrenador ");
-            System.out.println("error " + e.getMessage());
-            e.printStackTrace();
+
         }
 
         return lista;}
