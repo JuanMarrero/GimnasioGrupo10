@@ -5,6 +5,7 @@ import gimnasiogrupo10.AccesoADatos.SocioData;
 import gimnasiogrupo10.entidades.Membresias;
 import gimnasiogrupo10.entidades.Socios;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -14,10 +15,15 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
     private Socios socioSelec;
     private Membresias Membresia;
     private DefaultTableModel tablaModelo;
-
+    List<Membresias> listaMTodas;
+     List<Membresias> listaMActivas;
+      List<Membresias> listaMInactivas;
     public gestionMembresia() {
     initComponents();
     tablaModelo=new DefaultTableModel();
+    listaMInactivas = membresiaData.obtenerInactivasInscripcionesPorSocio(WIDTH);
+    listaMActivas = membresiaData.obtenerActivasInscripcionesPorSocio(WIDTH);
+    listaMTodas = membresiaData.obtenerInscripcionesPorSocio(WIDTH);
 
     }
         private void armarCabeceraTabla(){
@@ -211,7 +217,12 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         int id = Integer.parseInt(jtDni.getText());
         if(jrbTodas.isSelected()){
             membresiaData.obtenerInscripcionesPorSocio(id);
+            for (Membresias a: listaMTodas){
+         
+           tablaModelo.addRow(new Object[]{a.getID_Clase(),a.getNombre(),a.getEntrenadores().getNombre(),a.getHorario(),a.getCapacidad(),a.isEstado()});
             
+
+            }
         }
         
         if(jrbActivas.isSelected()){
