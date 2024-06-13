@@ -51,6 +51,44 @@ public class MembresiasData {
         
         ArrayList<Membresias> inscripciones= new ArrayList<>();
         
+        String sql="SELECT * FROM membresias WHERE ID_Socio= ?";
+        
+        try {
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                
+                ps.setInt(1, ID_Socio);
+                
+                ResultSet rs= ps.executeQuery();
+                
+                while (rs.next()){
+                    Membresias insc= new Membresias();
+                    
+                    insc.setID_Membresia(rs.getInt("ID_Membresia"));
+                    insc.setCosto(rs.getDouble("Costo"));
+                    insc.setCantidadDePases(rs.getInt("CantidadDePases"));
+                    insc.setFecha_Inicio(rs.getDate("Fecha_Inicio"));
+                    insc.setFecha_Fin(rs.getDate("Fecha_Fin"));
+                    insc.setEstado(rs.getBoolean("Estado"));                    
+                    Socios scs=sc.buscarSocio(rs.getInt("ID_Socio"));                    
+                    Clases cs=cd.buscarClasesPorID(rs.getInt("ID_Clase"));
+                    
+                    insc.setSocio(scs);
+                    insc.setClase(cs);
+                    inscripciones.add(insc);
+                }
+                ps.close();
+            }
+        } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error Al Acceder a la Tabla de Membresias");
+        }
+        return inscripciones;
+        
+        
+    }
+    public List<Membresias> obtenerActivasInscripcionesPorSocio(int ID_Socio){
+        
+        ArrayList<Membresias> inscripciones= new ArrayList<>();
+        
         String sql="SELECT * FROM membresias WHERE ID_Socio= ? AND Estado=1";
         
         try {
@@ -85,7 +123,44 @@ public class MembresiasData {
         
         
     }
-    
+  public List<Membresias> obtenerInactivasInscripcionesPorSocio(int ID_Socio){
+        
+        ArrayList<Membresias> inscripciones= new ArrayList<>();
+        
+        String sql="SELECT * FROM membresias WHERE ID_Socio= ? AND Estado=0";
+        
+        try {
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                
+                ps.setInt(1, ID_Socio);
+                
+                ResultSet rs= ps.executeQuery();
+                
+                while (rs.next()){
+                    Membresias insc= new Membresias();
+                    
+                    insc.setID_Membresia(rs.getInt("ID_Membresia"));
+                    insc.setCosto(rs.getDouble("Costo"));
+                    insc.setCantidadDePases(rs.getInt("CantidadDePases"));
+                    insc.setFecha_Inicio(rs.getDate("Fecha_Inicio"));
+                    insc.setFecha_Fin(rs.getDate("Fecha_Fin"));
+                    insc.setEstado(rs.getBoolean("Estado"));                    
+                    Socios scs=sc.buscarSocio(rs.getInt("ID_Socio"));                    
+                    Clases cs=cd.buscarClasesPorID(rs.getInt("ID_Clase"));
+                    
+                    insc.setSocio(scs);
+                    insc.setClase(cs);
+                    inscripciones.add(insc);
+                }
+                ps.close();
+            }
+        } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error Al Acceder a la Tabla de Membresias");
+        }
+        return inscripciones;
+        
+        
+    }
     
     public void renovarMembresia(int ID_Membresia, Date nuevaFechaFin) {
         String sql = "UPDATE membresias SET Fecha_Fin = ? WHERE ID_Membresia = ?";

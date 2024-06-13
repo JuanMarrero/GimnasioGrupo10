@@ -1,11 +1,40 @@
 package gimnasiogrupo10.vistas;
 
+import gimnasiogrupo10.AccesoADatos.MembresiasData;
+import gimnasiogrupo10.AccesoADatos.SocioData;
+import gimnasiogrupo10.entidades.Membresias;
+import gimnasiogrupo10.entidades.Socios;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 
 public class gestionMembresia extends javax.swing.JInternalFrame {
+    private MembresiasData membresiaData;
+    private SocioData sData=new SocioData();
+    private Socios socioSelec;
+    private Membresias Membresia;
+    private DefaultTableModel tablaModelo;
 
-    /** Creates new form buscarYlistarMembresia */
     public gestionMembresia() {
-        initComponents();
+    initComponents();
+    tablaModelo=new DefaultTableModel();
+
+    }
+        private void armarCabeceraTabla(){
+        ArrayList <Object> filaCabecera = new ArrayList<>();
+        filaCabecera.add("ID");
+        filaCabecera.add("Costo");
+        filaCabecera.add("Pases");
+        filaCabecera.add("FechaInicio");
+        filaCabecera.add("FechaFin");
+        filaCabecera.add("Estado");
+        filaCabecera.add("ID Socio");
+        filaCabecera.add("ID Clases");
+        for(Object it: filaCabecera){
+         tablaModelo.addColumn(it);
+        }
+        
+        jtTabla.setModel(tablaModelo);
     }
 
     /** This method is called from within the constructor to
@@ -19,31 +48,41 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
 
         jDesktopPane2 = new javax.swing.JDesktopPane();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        jtDni = new javax.swing.JTextField();
+        jbBuscar = new javax.swing.JButton();
+        jrbInactivas = new javax.swing.JRadioButton();
+        jrbTodas = new javax.swing.JRadioButton();
+        jrbActivas = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jtTabla = new javax.swing.JTable();
+        jbSalir = new javax.swing.JButton();
+        jbRenovar = new javax.swing.JButton();
+        jbAnular = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
-        jLabel4.setText("DNI Socio");
+        jLabel4.setText("ID Socio");
 
-        jButton5.setText("Buscar");
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
-        jRadioButton1.setText("Inactivas");
+        jrbInactivas.setText("Inactivas");
 
-        jRadioButton2.setText("Todas");
+        jrbTodas.setSelected(true);
+        jrbTodas.setText("Todas");
+        jrbTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbTodasActionPerformed(evt);
+            }
+        });
 
-        jRadioButton3.setText("Activas");
+        jrbActivas.setText("Activas");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -54,15 +93,18 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jtTabla);
 
-        jButton6.setText("Salir");
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("jButton7");
+        jbRenovar.setText("Renovar");
 
-        jButton8.setText("Renovar");
-
-        jButton9.setText("Anular");
+        jbAnular.setText("Anular");
 
         jLabel3.setFont(new java.awt.Font("Ebrima", 1, 18)); // NOI18N
         jLabel3.setText("Gestión Membresias");
@@ -71,16 +113,15 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
 
         jDesktopPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jRadioButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jRadioButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jRadioButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jtDni, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jrbInactivas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jrbTodas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jrbActivas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jButton8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jButton9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jbSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jbRenovar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jbAnular, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jSeparator1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -89,39 +130,38 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         jDesktopPane2Layout.setHorizontalGroup(
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
                         .addGap(92, 92, 92)
-                        .addComponent(jRadioButton1)
+                        .addComponent(jrbInactivas)
                         .addGap(31, 31, 31)
-                        .addComponent(jRadioButton2)
+                        .addComponent(jrbTodas)
                         .addGap(52, 52, 52)
-                        .addComponent(jRadioButton3))
+                        .addComponent(jrbActivas))
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel4)
-                        .addGap(30, 30, 30)
-                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
+                        .addGap(27, 27, 27)
+                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jbRenovar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(30, 30, 30)
+                                    .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                                            .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(43, 43, 43)
+                                            .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
         jDesktopPane2Layout.setVerticalGroup(
@@ -134,21 +174,20 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
+                    .addComponent(jrbInactivas)
+                    .addComponent(jrbTodas)
+                    .addComponent(jrbActivas))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbRenovar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
 
@@ -168,23 +207,49 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        int id = Integer.parseInt(jtDni.getText());
+        if(jrbTodas.isSelected()){
+            membresiaData.obtenerInscripcionesPorSocio(id);
+            
+        }
+        
+        if(jrbActivas.isSelected()){
+            membresiaData.obtenerActivasInscripcionesPorSocio(id);
+            
+        }
+        if(jrbInactivas.isSelected()){
+            membresiaData.obtenerInactivasInscripcionesPorSocio(id);
+            
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jrbTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTodasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrbTodasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jbAnular;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbRenovar;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JRadioButton jrbActivas;
+    private javax.swing.JRadioButton jrbInactivas;
+    private javax.swing.JRadioButton jrbTodas;
+    private javax.swing.JTextField jtDni;
+    private javax.swing.JTable jtTabla;
     // End of variables declaration//GEN-END:variables
 
 }

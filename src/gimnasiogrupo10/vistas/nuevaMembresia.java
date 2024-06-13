@@ -267,8 +267,7 @@ public class nuevaMembresia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtIDSocioActionPerformed
 
     private void jbBuscarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarSocioActionPerformed
-        // Obtener el ID ingresado por el usuario
-       // String id = jtIDSocio.getText();
+
          int id = Integer.parseInt(jtIDSocio.getText());
          //   Socios socioN = sData.buscarSocio(id);
          jtNombreSocio.setText( sData.buscarSocio(id).getNombre()); 
