@@ -117,7 +117,7 @@ public class SocioData {
     
     public Socios buscarSocioXDni(int DNI){
         
-        String sql="SELECT * FROM socios WHERE DNI = ? AND Estado = 1";
+        String sql="SELECT * FROM socios WHERE DNI = ? ";
         
         Socios socio=null; //iniciamos un socio vacio
         
@@ -225,6 +225,30 @@ public class SocioData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al restar un pase: " + ex.getMessage());
         }
+    }
+    
+    public void altaSocio(int id){
+        
+       String sql="UPDATE socios SET Estado = 1 WHERE ID_Socio = ?";
+       
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            
+            ps.setInt(1, id);
+            
+            int gl=ps.executeUpdate();
+            
+            if(gl==1){
+                
+                JOptionPane.showMessageDialog(null, "Socio dado de alta exitosamente");
+
+            }                
+            ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla SOcio");
+        }
+        
     }
     
 

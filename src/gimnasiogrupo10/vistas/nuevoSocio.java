@@ -4,6 +4,9 @@ import gimnasiogrupo10.entidades.*;
 import gimnasiogrupo10.AccesoADatos.*;
 import static java.awt.Color.black;
 import static java.awt.Color.gray;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class nuevoSocio extends javax.swing.JInternalFrame {
@@ -13,6 +16,8 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
 
     public nuevoSocio() {
         initComponents();
+
+        this.setSize(500, 500);
     }
 
     @SuppressWarnings("unchecked")
@@ -179,7 +184,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 30, Short.MAX_VALUE)
+                .addGap(18, 23, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -209,7 +214,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -268,10 +273,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "El nombre y apellido solo deben contener letras.");
                 return;
             }
-               if (edad > 18) {
-            JOptionPane.showMessageDialog(this, "Ingrese una edad válida.");
-            return;
-        }
+        
 
             String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
             if (!correo.matches(emailRegex)) {
@@ -290,6 +292,7 @@ public class nuevoSocio extends javax.swing.JInternalFrame {
              
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane,"Ingrese una edad válida.");
+            e.printStackTrace();
         }
 
     }//GEN-LAST:event_jbGuardarActionPerformed

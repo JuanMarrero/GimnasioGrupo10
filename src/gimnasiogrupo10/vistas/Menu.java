@@ -1,9 +1,16 @@
 package gimnasiogrupo10.vistas;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 public class Menu extends javax.swing.JFrame {
 
     public Menu() {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+        this.setSize(800, 600);
     }
 
     /**

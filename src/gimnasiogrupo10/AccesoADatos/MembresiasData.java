@@ -121,7 +121,7 @@ public class MembresiasData {
         
         
     }
-  public List<Membresias> obtenerInactivasInscripcionesPorSocio(int ID_Socio){
+    public List<Membresias> obtenerInactivasInscripcionesPorSocio(int ID_Socio){
         
         ArrayList<Membresias> inscripciones= new ArrayList<>();
         
