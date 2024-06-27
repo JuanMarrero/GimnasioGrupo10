@@ -177,7 +177,7 @@ public class ClasesData {
     } 
       
 
-public List<Clases> listarClasesActivas() {
+    public List<Clases> listarClasesActivas() {
     List<Clases> clasesActivas = new ArrayList<>();
     String sql = "SELECT * FROM clases WHERE Estado = 1";
     try {
@@ -296,4 +296,30 @@ public List<Clases> listarClasesActivas() {
             JOptionPane.showMessageDialog(null, "Error al decrementar la capacidad de la clase: " + ex.getMessage());
         }
     }
-}
+     
+    public int obtenerCapacidadActual(int idClase) {
+        int capacidadActual = 0;
+        String sql = "SELECT Capacidad FROM clases WHERE ID_Clase = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idClase);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                capacidadActual = rs.getInt("Capacidad");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna clase con ID " + idClase);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener la capacidad actual de la clase");
+            ex.printStackTrace();
+        }
+
+        return capacidadActual;
+    }
+}  
+

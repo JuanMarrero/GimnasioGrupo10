@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 public class nuevaAsistencia extends javax.swing.JInternalFrame {
 
+
     private AsistenciaData asistenciaData;
     private SocioData socioData;
     private ClasesData clasesData;
@@ -179,62 +180,76 @@ public class nuevaAsistencia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-try {
-    // Obtener el socio seleccionado
-    int dni = Integer.parseInt(textDNI.getText());
-    Socios socio = socioData.buscarSocioXDni(dni);
-
-    if (socio != null) {
+    try {
+        // Obtener el DNI del campo de texto
+        int dni = Integer.parseInt(textDNI.getText());
         
-        int pasesRestantes = socioData.obtenerCantidadPases(socio.getID_Socio());
-        if (pasesRestantes <= 0 ){
-            JOptionPane.showMessageDialog(this, "Usted no tiene pases disponibles");
-            return;
-        }
+        // Buscar al socio por su DNI
+        Socios socio = socioData.buscarSocioXDni(dni);
         
-        // Obtener el nombre de la clase seleccionada
-        String nombreClaseSeleccionada = (String) comboClase.getSelectedItem();
-
-        // Buscar el objeto Clases correspondiente en la lista
-        Clases claseSeleccionada = null;
-        for (Clases clase : clasesData.listarClasesActivas()) {
-            if (clase.getNombre().equals(nombreClaseSeleccionada)) {
-                claseSeleccionada = clase;
-                break; // No es necesario continuar el bucle una vez encontrada la clase
+        if (socio != null) {
+            // Verificar si el socio tiene pases disponibles
+            int pasesRestantes = socioData.obtenerCantidadPases(socio.getID_Socio());
+            if (pasesRestantes <= 0) {
+                JOptionPane.showMessageDialog(this, "Usted no tiene pases disponibles");
+                return;
             }
-        }
+            
+            // Obtener el nombre de la clase seleccionada
+            String nombreClaseSeleccionada = (String) comboClase.getSelectedItem();
 
-        if (claseSeleccionada != null) {
-            // Obtener la fecha de asistencia actual
-            LocalDate fechaAsistencia = LocalDate.now();
+            // Buscar la clase seleccionada
+            Clases claseSeleccionada = null;
+            for (Clases clase : clasesData.listarClasesActivas()) {
+                if (clase.getNombre().equals(nombreClaseSeleccionada)) {
+                    claseSeleccionada = clase;
+                    break;
+                }
+            }
 
-            // Guardar la nueva asistencia en la base de datos
-            asistenciaData.registrarAsistencia(new Asistencia(socio, claseSeleccionada, fechaAsistencia));
+            // Verificar si se encontró la clase
+            if (claseSeleccionada != null) {
+                // Obtener la capacidad actual de la clase
+                int capacidadActual = clasesData.obtenerCapacidadActual(claseSeleccionada.getID_Clase());
+                
+                // Verificar si hay capacidad disponible
+                if (capacidadActual > 0) {
+                    // Obtener la fecha de asistencia actual
+                    LocalDate fechaAsistencia = LocalDate.now();
 
-            // Restar un pase al socio
-            socioData.restarPase(socio.getID_Socio());
+                    // Registrar la nueva asistencia
+                    Asistencia nuevaAsistencia = new Asistencia(socio, claseSeleccionada, fechaAsistencia);
+                    asistenciaData.registrarAsistencia(nuevaAsistencia);
 
-            // Decrementar la capacidad de la clase
-            clasesData.decrementarCapacidad(claseSeleccionada.getID_Clase());
+                    // Restar un pase al socio
+                    socioData.restarPase(socio.getID_Socio());
 
-            // Mostrar un mensaje de éxito
-            JOptionPane.showMessageDialog(this, "Asistencia registrada correctamente");
+                    // Decrementar la capacidad de la clase
+                    clasesData.decrementarCapacidad(claseSeleccionada.getID_Clase());
+
+                    // Mostrar mensaje de éxito
+                    JOptionPane.showMessageDialog(this, "Asistencia registrada correctamente");
+                } else {
+                    // Mostrar mensaje de error si no hay capacidad disponible
+                    JOptionPane.showMessageDialog(this, "La clase ya ha alcanzado el límite de alumnos.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Mostrar mensaje de error si no se encuentra la clase seleccionada
+                JOptionPane.showMessageDialog(this, "Clase seleccionada no encontrada");
+            }
         } else {
-            // Mostrar un mensaje de error si no se encuentra la clase seleccionada
-            JOptionPane.showMessageDialog(this, "Clase seleccionada no encontrada");
+            // Mostrar mensaje de error si el socio no fue encontrado
+            JOptionPane.showMessageDialog(this, "Socio no encontrado");
         }
-    } else {
-        // Mostrar un mensaje de error si el socio no fue encontrado
-        JOptionPane.showMessageDialog(this, "Socio no encontrado");
+    } catch (NumberFormatException ex) {
+        // Mostrar mensaje de error si el DNI ingresado no es válido
+        JOptionPane.showMessageDialog(this, "Debe ingresar un número válido en el campo DNI");
+    } catch (Exception ex) {
+        // Mostrar mensaje de error genérico si ocurre un error al guardar la asistencia
+        JOptionPane.showMessageDialog(this, "Error al guardar la asistencia");
+        ex.printStackTrace();
     }
-} catch (NumberFormatException ex) {
-    // Mostrar un mensaje de error si el DNI ingresado no es válido
-    JOptionPane.showMessageDialog(this, "Debe ingresar un número válido en el campo DNI");
-} catch (Exception ex) {
-    // Mostrar un mensaje de error genérico si ocurre un error al guardar la asistencia
-    JOptionPane.showMessageDialog(this, "Error al guardar la asistencia");
-    ex.printStackTrace();
-}
+
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

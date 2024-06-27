@@ -154,5 +154,26 @@ import javax.swing.JOptionPane;
     return asistencias;
 }
     
+    public int obtenerCantidadInscripciones(int idClase) {
+    String sql = "SELECT COUNT(*) AS cantidadInscripciones FROM asistencia WHERE ID_Clase = ?";
+    int cantidadInscripciones = 0;
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idClase);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            cantidadInscripciones = rs.getInt("cantidadInscripciones");
+        }
+
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener la cantidad de inscripciones: " + ex.getMessage());
+    }
+    return cantidadInscripciones;
+}
+    
     }  
 
