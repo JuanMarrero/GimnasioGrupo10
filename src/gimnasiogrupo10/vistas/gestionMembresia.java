@@ -99,7 +99,7 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(jtTabla);
 
-        jDesktopPane2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 163, 430, 140));
+        jDesktopPane2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 163, 510, 140));
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +144,7 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(jDesktopPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,13 +208,11 @@ public class gestionMembresia extends javax.swing.JInternalFrame {
             modeloTabla.removeRow(filaSeleccionada); 
             
             JOptionPane.showMessageDialog(this, "Membresía anulada correctamente");
+              
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo anular la membresía");
-        }
-    } else {
         JOptionPane.showMessageDialog(this, "Selecciona una membresía para anular");
-    }
- 
+        }
+      }
     }//GEN-LAST:event_jbAnularActionPerformed
 
 

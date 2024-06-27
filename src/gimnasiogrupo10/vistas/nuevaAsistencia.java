@@ -185,6 +185,13 @@ try {
     Socios socio = socioData.buscarSocioXDni(dni);
 
     if (socio != null) {
+        
+        int pasesRestantes = socioData.obtenerCantidadPases(socio.getID_Socio());
+        if (pasesRestantes <= 0 ){
+            JOptionPane.showMessageDialog(this, "Usted no tiene pases disponibles");
+            return;
+        }
+        
         // Obtener el nombre de la clase seleccionada
         String nombreClaseSeleccionada = (String) comboClase.getSelectedItem();
 

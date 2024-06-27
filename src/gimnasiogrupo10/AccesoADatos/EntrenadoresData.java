@@ -332,6 +332,30 @@ public class EntrenadoresData {
         }
 
     }
+        
+        public void darAlta(int id){ 
+    
+        try {
+        //String sql= "UPDATE alumno SET estado = 0 WHERE idAlumno = ? ";
+        String sql= "UPDATE `entrenadores` SET `Estado`=1 WHERE `ID_Entrenador`=? ";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        int fila = ps.executeUpdate();
+        
+        if(fila==1){
+            JOptionPane.showMessageDialog(null, "Se dio de alta al entrenador con id: "+id);
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo dar de alta al entrenador con id: "+id);
+        }
+        ps.close();
+        
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar datos");
+            System.out.println("error " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
     
     
 }

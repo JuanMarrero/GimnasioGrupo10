@@ -82,7 +82,7 @@ public class ClasesData {
       
       public Clases buscarClasesPorNombre(String Nombre){
         
-        String sql="SELECT * FROM Clases WHERE Nombre = ? AND Estado = 1";
+        String sql="SELECT * FROM Clases WHERE Nombre = ?";
         
         Clases clase=null; //iniciamos una clase vacia
         
@@ -114,7 +114,7 @@ public class ClasesData {
       
       public List<Clases> buscarClasesPorEntrenador(int ID_Entrenador){
         
-        String sql="SELECT * FROM Clases WHERE ID_Entrenador = ? AND Estado = 1";
+        String sql="SELECT * FROM Clases WHERE ID_Entrenador = ? ";
         
         List<Clases> claseList = new ArrayList<>();
         
@@ -146,7 +146,7 @@ public class ClasesData {
       
      public Clases buscarClasesPorID(int ID_Clase){
         
-        String sql="SELECT * FROM Clases WHERE ID_Clase = ? AND Estado = 1";
+        String sql="SELECT * FROM Clases WHERE ID_Clase = ? ";
         
         Clases clase=null; //iniciamos una clase vacia
         

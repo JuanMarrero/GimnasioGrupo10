@@ -251,6 +251,25 @@ public class SocioData {
         
     }
     
+    public int obtenerCantidadPases(int idSocio) {
+    String sql = "SELECT CantidadPases FROM membresias WHERE ID_Socio = ?";
+    int cantidadPases = 0;
 
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idSocio);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            cantidadPases = rs.getInt("CantidadPases");
+        }
+        
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener la cantidad de pases: " + ex.getMessage());
+    }
+    return cantidadPases;
+}
    
 }

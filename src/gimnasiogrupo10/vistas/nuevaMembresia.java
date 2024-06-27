@@ -3,6 +3,7 @@ package gimnasiogrupo10.vistas;
 
 import gimnasiogrupo10.AccesoADatos.*;
 import gimnasiogrupo10.entidades.*;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,6 +24,9 @@ public class nuevaMembresia extends javax.swing.JInternalFrame {
         membresiasData = new MembresiasData();
         
         cargarClases();
+        
+        dateInscripcion.getJCalendar().setMinSelectableDate(new Date());
+        
     }
 
 
@@ -83,8 +87,14 @@ public class nuevaMembresia extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Vencimiento");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 342, -1, -1));
-        getContentPane().add(dateInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 269, -1, -1));
-        getContentPane().add(dateVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 332, -1, -1));
+        getContentPane().add(dateInscripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 269, 200, -1));
+
+        dateVencimiento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateVencimientoPropertyChange(evt);
+            }
+        });
+        getContentPane().add(dateVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 332, 200, -1));
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -192,6 +202,16 @@ public class nuevaMembresia extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_botonGuardarActionPerformed
 
+    private void dateVencimientoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateVencimientoPropertyChange
+        // TODO add your handling code here:
+        
+        if ("date".equals(evt.getPropertyName())){
+            actualizarFechaVencimiento();        }
+    
+        
+        
+    }//GEN-LAST:event_dateVencimientoPropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
@@ -224,5 +244,17 @@ public class nuevaMembresia extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar las clases: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private void actualizarFechaVencimiento() {
+    
+    Date fechaInscripcion = dateInscripcion.getDate();
+    
+    if (fechaInscripcion != null){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaInscripcion);
+        calendar.add(Calendar.DAY_OF_MONTH, 30);
+        dateVencimiento.setDate(calendar.getTime());
+    }
+}
 
 }

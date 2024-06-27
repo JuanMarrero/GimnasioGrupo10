@@ -34,15 +34,15 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
     private void armarCabeceraTabla(){
         ArrayList<Object> filaCabecera = new ArrayList<>();
         filaCabecera.add("ID");
-        filaCabecera.add("Dni");
+        filaCabecera.add("Clase");
         filaCabecera.add("Nombre");
-        filaCabecera.add("Apellido");
-        filaCabecera.add("Especialidad");
+        filaCabecera.add("Hora");
+        filaCabecera.add("Capacidad");
         filaCabecera.add("Estado");
         for (Object it : filaCabecera) {
             modelo.addColumn(it);
         }
-        jtEntrenadores.setModel(modelo);
+        jTable2.setModel(modelo);
     }
     
     private void borrarFilaTabla(){
@@ -61,9 +61,8 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jbBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtEntrenadores = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
         jbDarBaja = new javax.swing.JButton();
-        jbModificar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         cbEntrenadores = new javax.swing.JComboBox<>();
 
@@ -78,7 +77,7 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
             }
         });
 
-        jtEntrenadores.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -89,19 +88,12 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jtEntrenadores);
+        jScrollPane1.setViewportView(jTable2);
 
         jbDarBaja.setText("Dar Baja");
         jbDarBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbDarBajaActionPerformed(evt);
-            }
-        });
-
-        jbModificar.setText("Modificar Datos");
-        jbModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificarActionPerformed(evt);
             }
         });
 
@@ -123,7 +115,6 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbDarBaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(cbEntrenadores, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -138,8 +129,6 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jbDarBaja)
-                .addGap(97, 97, 97)
-                .addComponent(jbModificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbSalir)
                 .addGap(80, 80, 80))
@@ -170,7 +159,6 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbDarBaja)
-                    .addComponent(jbModificar)
                     .addComponent(jbSalir))
                 .addGap(62, 62, 62))
         );
@@ -196,12 +184,17 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbModificarActionPerformed
-
     private void jbDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDarBajaActionPerformed
-        // TODO add your handling code here:
+     int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow != -1) {
+        int idEntrenador = Integer.parseInt(modelo.getValueAt(selectedRow, 0).toString());
+        entrenadorData.darBaja(idEntrenador);
+        entrenadorActual = null;
+        borrarFilaTabla();
+        modelo.setRowCount(0);
+    } else {
+        JOptionPane.showMessageDialog(this, "NO HAY SOCIOS SELECCIONADOS");
+    }
     }//GEN-LAST:event_jbDarBajaActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
@@ -223,11 +216,10 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbDarBaja;
-    private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JTable jtEntrenadores;
     // End of variables declaration//GEN-END:variables
 
     private void cargarEntrenadores() {
@@ -251,7 +243,7 @@ public class gestionEntrenador extends javax.swing.JInternalFrame {
     }
         for (Clases a: listaC){
          
-           modelo.addRow(new Object[]{a.getID_Clase(), a.getNombre(),a.getEntrenadores().getNombre(),a.getHorario(),a.getCapacidad(),a.isEstado()});
+           modelo.addRow(new Object[]{a.getEntrenadores().getID_Entrenador(), a.getNombre(),a.getEntrenadores().getNombre(),a.getHorario(),a.getCapacidad(),a.isEstado()});
             
             }
         }
